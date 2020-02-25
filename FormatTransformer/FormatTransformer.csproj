@@ -6,4 +6,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FormatTransformerLib\FormatTransformerLib.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button x:Name="transformButton" Content="Преобразовать" HorizontalAlignment="Left" Margin="87,173,0,0" VerticalAlignment="Top" Width="92" Click="transformButton_Click"/>
 
     </Grid>
 </Window>

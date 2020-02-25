@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FormatTransformerLib;
 
 namespace FormatTransformer
 {
@@ -23,6 +24,12 @@ namespace FormatTransformer
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void transformButton_Click(object sender, RoutedEventArgs e)
+        {
+            Transformer transformer = new Transformer();
+            transformer.Transform();
         }
     }
 }

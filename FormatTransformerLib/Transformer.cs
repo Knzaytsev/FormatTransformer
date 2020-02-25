@@ -8,9 +8,9 @@ namespace FormatTransformerLib
 {
     public class Transformer
     {
-        private string file;
-        private string rule;
-        private string result;
+        private string file = @"..\..\..\..\FormatTransformer\CorporaStore\books.xml";
+        private string rule = @"..\..\..\..\FormatTransformer\RuleStore\Rule.xsl";
+        private string result = @"..\..\..\..\FormatTransformer\CorporaStore\result.html";
 
         public void AddFile(string file)
         {
@@ -29,8 +29,10 @@ namespace FormatTransformerLib
 
         public void Transform()
         {
-            XslTransform xslt = new XslTransform();
-            xslt.Load(rule);
+            XsltSettings settings = new XsltSettings();
+            settings.EnableScript = true;
+            XslCompiledTransform xslt = new XslCompiledTransform();
+            xslt.Load(rule, settings, null);
             xslt.Transform(file, result);
         }
 
