@@ -27,13 +27,9 @@ namespace FormatTransformerLib
             return false;
         }
 
-        public void Transform()
+        public void Transform(ITransform transformer)
         {
-            XsltSettings settings = new XsltSettings();
-            settings.EnableScript = true;
-            XslCompiledTransform xslt = new XslCompiledTransform();
-            xslt.Load(rule, settings, null);
-            xslt.Transform(file, result);
+            transformer.Transform(file, rule, result);
         }
 
         public object GetResult()

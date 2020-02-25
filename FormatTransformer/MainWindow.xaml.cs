@@ -29,7 +29,7 @@ namespace FormatTransformer
         private void transformButton_Click(object sender, RoutedEventArgs e)
         {
             Transformer transformer = new Transformer();
-            transformer.Transform();
+            transformer.Transform(new XMLTransformer());
         }
     }
 }
