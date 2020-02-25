@@ -5,13 +5,14 @@ using System.Text;
 
 namespace FormatTransformerLib
 {
-    class CorpusManager
+    public class CorpusManager
     {
         private ICorpusConnect connector;
-        private ICorpora corpus;
+        private Corpus corpus;
         public void ConnectCorpus(ICorpusConnect connector)
         {
             this.connector = connector;
+            connector.Connect(null);
             corpus = connector.GetCorpora();
         }
     }

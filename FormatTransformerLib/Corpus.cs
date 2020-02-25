@@ -4,9 +4,11 @@ using System.Text;
 
 namespace FormatTransformerLib
 {
-    class Corpus : ICorpora
+    public class Corpus : ICorpora
     {
         private List<ICorpora> corpora = new List<ICorpora>();
+
+        public string Title { get; set; }
 
         public void Add(ICorpora element)
         {

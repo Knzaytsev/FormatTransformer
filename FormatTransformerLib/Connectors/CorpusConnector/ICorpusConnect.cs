@@ -4,10 +4,10 @@ using System.Text;
 
 namespace FormatTransformerLib.Connectors.CorpusConnector
 {
-    interface ICorpusConnect
+    public interface ICorpusConnect
     {
         public void Connect(object connector);
 
-        public ICorpora GetCorpora();
+        public Corpus GetCorpora();
     }
 }

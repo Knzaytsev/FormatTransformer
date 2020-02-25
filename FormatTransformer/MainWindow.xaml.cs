@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FormatTransformerLib;
+using FormatTransformerLib.Connectors.CorpusConnector;
 
 namespace FormatTransformer
 {
@@ -28,8 +29,14 @@ namespace FormatTransformer
 
         private void transformButton_Click(object sender, RoutedEventArgs e)
         {
-            Transformer transformer = new Transformer();
+            var transformer = new Transformer();
             transformer.Transform(new XMLTransformer());
+        }
+
+        private void loadCorpora_Click(object sender, RoutedEventArgs e)
+        {
+            var corpusManager = new CorpusManager();
+            corpusManager.ConnectCorpus(new LocalConnector());
         }
     }
 }

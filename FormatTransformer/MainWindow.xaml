@@ -8,6 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button x:Name="transformButton" Content="Преобразовать" HorizontalAlignment="Left" Margin="87,173,0,0" VerticalAlignment="Top" Width="92" Click="transformButton_Click"/>
+        <Button x:Name="loadCorpora" Content="Загрузить корпус" HorizontalAlignment="Left" Margin="296,217,0,0" VerticalAlignment="Top" Click="loadCorpora_Click"/>
 
     </Grid>
 </Window>

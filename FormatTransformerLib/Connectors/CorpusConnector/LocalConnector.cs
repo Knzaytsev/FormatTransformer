@@ -1,11 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 
 namespace FormatTransformerLib.Connectors.CorpusConnector
 {
-    class LocalConnector : ICorpusConnect
+    public class LocalConnector : ICorpusConnect
     {
+        private Corpus corpora = new Corpus();
         /// <summary>
         /// Подключение к корпусу на локальном диске.
         /// Если корпуса не существует, то создать.
@@ -13,12 +15,31 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
         /// </summary>
         public void Connect(object connector)
         {
-            throw new NotImplementedException();
+            connector = @"..\..\..\";
+            DirectoryInfo directoryInfo = new DirectoryInfo(connector + "CorporaStore");
+            if (!directoryInfo.Exists)
+            {
+                directoryInfo.Create();
+            }
+            foreach(var d in directoryInfo.GetDirectories())
+            {
+                Corpus corpus = new Corpus() { Title = d.Name };
+                foreach (var f in d.GetFiles())
+                {
+                    var file = new TextFile()
+                    {
+                        Path = f.FullName,
+                        Title = f.Name
+                    };
+                    corpus.Add(file);
+                }
+                corpora.Add(corpus);
+            }
         }
 
-        public ICorpora GetCorpora()
+        public Corpus GetCorpora()
         {
-            throw new NotImplementedException();
+            return corpora;
         }
     }
 }
