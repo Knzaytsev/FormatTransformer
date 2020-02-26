@@ -23,6 +23,9 @@ namespace FormatTransformer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private CorpusManager corpusManager = new CorpusManager();
+        private RuleManager ruleManager = new RuleManager();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,14 +39,17 @@ namespace FormatTransformer
 
         private void loadCorpora_Click(object sender, RoutedEventArgs e)
         {
-            var corpusManager = new CorpusManager();
             corpusManager.ConnectCorpus(new LocalCorpusConnector());
         }
 
         private void loadRules_Click(object sender, RoutedEventArgs e)
         {
-            var ruleManager = new RuleManager();
             ruleManager.ConnectRules(new LocalRuleConnector());
+        }
+
+        private void addCorpus_Click(object sender, RoutedEventArgs e)
+        {
+            corpusManager.AddCorpus("OtherCorpus");
         }
     }
 }

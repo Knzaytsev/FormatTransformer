@@ -48,6 +48,16 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             }
         }
 
+        public void AddCorpus(string title)
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(connectorString + @"CorporaStore\" + title);
+            if (!directoryInfo.Exists)
+            {
+                directoryInfo.Create();
+                corpora.Add(new Corpus() { Title = title });
+            }
+        }
+
         public Corpus GetCorpora()
         {
             return corpora;
