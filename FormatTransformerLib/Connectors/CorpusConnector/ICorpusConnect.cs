@@ -6,7 +6,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 {
     public interface ICorpusConnect
     {
-        public void Connect(object connector);
+        public void Connect();
 
         public Corpus GetCorpora();
     }

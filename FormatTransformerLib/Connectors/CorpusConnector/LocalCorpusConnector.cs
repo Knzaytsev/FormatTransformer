@@ -5,18 +5,29 @@ using System.Text;
 
 namespace FormatTransformerLib.Connectors.CorpusConnector
 {
-    public class LocalConnector : ICorpusConnect
+    public class LocalCorpusConnector : ICorpusConnect
     {
+        private string connectorString = @"..\..\..\";
         private Corpus corpora = new Corpus();
+
+        public LocalCorpusConnector()
+        {
+
+        }
+
+        public LocalCorpusConnector(string connectorString)
+        {
+            this.connectorString = connectorString;
+        }
+
         /// <summary>
         /// Подключение к корпусу на локальном диске.
         /// Если корпуса не существует, то создать.
         /// Иначе считать все файлы, находящиеся в нём.
         /// </summary>
-        public void Connect(object connector)
+        public void Connect()
         {
-            connector = @"..\..\..\";
-            DirectoryInfo directoryInfo = new DirectoryInfo(connector + "CorporaStore");
+            DirectoryInfo directoryInfo = new DirectoryInfo(connectorString + "CorporaStore");
             if (!directoryInfo.Exists)
             {
                 directoryInfo.Create();

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FormatTransformerLib;
 using FormatTransformerLib.Connectors.CorpusConnector;
+using FormatTransformerLib.Connectors.RuleConnector;
 
 namespace FormatTransformer
 {
@@ -36,7 +37,13 @@ namespace FormatTransformer
         private void loadCorpora_Click(object sender, RoutedEventArgs e)
         {
             var corpusManager = new CorpusManager();
-            corpusManager.ConnectCorpus(new LocalConnector());
+            corpusManager.ConnectCorpus(new LocalCorpusConnector());
+        }
+
+        private void loadRules_Click(object sender, RoutedEventArgs e)
+        {
+            var ruleManager = new RuleManager();
+            ruleManager.ConnectRules(new LocalRuleConnector());
         }
     }
 }

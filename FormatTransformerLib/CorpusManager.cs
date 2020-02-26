@@ -12,7 +12,7 @@ namespace FormatTransformerLib
         public void ConnectCorpus(ICorpusConnect connector)
         {
             this.connector = connector;
-            connector.Connect(null);
+            connector.Connect();
             corpus = connector.GetCorpora();
         }
     }
