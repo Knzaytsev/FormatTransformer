@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using FormatTransformerLib;
 using FormatTransformerLib.Connectors.CorpusConnector;
 using FormatTransformerLib.Connectors.RuleConnector;
+using Microsoft.Win32;
 
 namespace FormatTransformer
 {
@@ -74,6 +75,16 @@ namespace FormatTransformer
         private void listFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void addFile_Click(object sender, RoutedEventArgs e)
+        {
+            var corpus = (Corpus)listCorpora.SelectedItem;
+            var opf = new OpenFileDialog();
+            if (opf.ShowDialog() == true)
+            {
+                corpusManager.AddFile(corpus, opf.FileName);
+            }
         }
     }
 }

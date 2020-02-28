@@ -14,7 +14,7 @@
         <Button x:Name="transformButton" Content="Преобразовать" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="106" Click="transformButton_Click"/>
         <Button x:Name="loadCorpora" Content="Загрузить корпус" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Click="loadCorpora_Click" Width="106"/>
         <Button x:Name="loadRules" Content="Загрузить правила" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Click="loadRules_Click"/>
-        <Button x:Name="addCorpus" Content="Добавить корпус" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Click="addCorpus_Click" Width="106"/>
+        <Button x:Name="addCorpus" Content="Добавить корпус" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Click="addCorpus_Click" Width="106"/>
         <DockPanel x:Name="corpusTree" HorizontalAlignment="Left" Height="414" LastChildFill="False" Margin="121,37,0,0" VerticalAlignment="Top" Width="329" Grid.ColumnSpan="2">
             <ListBox x:Name="listCorpora" Width="328" SelectionChanged="listCorpora_SelectionChanged">
                 <ListBox.ItemTemplate>
@@ -25,13 +25,22 @@
             </ListBox>
         </DockPanel>
         <DockPanel LastChildFill="False" Margin="302,37,10,10" Grid.Column="1">
-            <ListBox x:Name="listFiles" Margin="455,10,10,10" SelectionChanged="listFiles_SelectionChanged">
+            <ListBox x:Name="listFiles" SelectionChanged="listFiles_SelectionChanged" RenderTransformOrigin="0.5,0.5" DockPanel.Dock="Left" Width="333">
+                <ListBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </ListBox.RenderTransform>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Path=Title}"/>
+                        <TextBlock Text="{Binding Title}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </DockPanel>
+        <Button x:Name="addFile" Content="Добавить файл" HorizontalAlignment="Left" Margin="10,112,0,0" VerticalAlignment="Top" Width="106" Click="addFile_Click"/>
     </Grid>
 </Window>

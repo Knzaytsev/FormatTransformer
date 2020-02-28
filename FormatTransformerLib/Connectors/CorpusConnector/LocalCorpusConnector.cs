@@ -67,5 +67,12 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
         {
             return corpora.GetCorpora();
         }
+
+        public void AddFile(Corpus corpus, string fileName)
+        {
+            corpus.Add(new TextFile() { Title = Path.GetFileName(fileName), Path = fileName });
+            FileInfo fileInfo = new FileInfo(fileName);
+            fileInfo.CopyTo(connectorString + @"\CorporaStore\" + corpus.Title + @"\" + Path.GetFileName(fileName));
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
         public List<ICorpora> GetCorpora();
 
         public void AddCorpus(string title);
+        void AddFile(Corpus corpus, string fileName);
     }
 }

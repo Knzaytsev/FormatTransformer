@@ -24,5 +24,10 @@ namespace FormatTransformerLib
         {
             return connector.GetCorpora();
         }
+
+        public void AddFile(Corpus corpus, string fileName)
+        {
+            connector.AddFile(corpus, fileName);
+        }
     }
 }
