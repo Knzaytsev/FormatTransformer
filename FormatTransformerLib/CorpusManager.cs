@@ -19,5 +19,10 @@ namespace FormatTransformerLib
         {
             connector.AddCorpus(title);
         }
+
+        public List<ICorpora> GetCorpora()
+        {
+            return connector.GetCorpora();
+        }
     }
 }

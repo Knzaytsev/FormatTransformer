@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,13 @@ namespace FormatTransformer
         private void loadCorpora_Click(object sender, RoutedEventArgs e)
         {
             corpusManager.ConnectCorpus(new LocalCorpusConnector());
+            var corpora = corpusManager.GetCorpora();
+            var collectionCorpora = new ObservableCollection<ICorpora>();
+            foreach(var c in corpora)
+            {
+                collectionCorpora.Add(c);
+            }
+            listCorpora.ItemsSource = collectionCorpora;
         }
 
         private void loadRules_Click(object sender, RoutedEventArgs e)
@@ -49,7 +57,23 @@ namespace FormatTransformer
 
         private void addCorpus_Click(object sender, RoutedEventArgs e)
         {
-            corpusManager.AddCorpus("OtherCorpus");
+            corpusManager.AddCorpus("AnotherCorpus");
+        }
+
+        private void listCorpora_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var corpus = (Corpus)listCorpora.SelectedItem;
+            var textFiles = new ObservableCollection<ICorpora>();
+            foreach(var f in corpus.GetCorpora())
+            {
+                textFiles.Add(f);
+            }
+            listFiles.ItemsSource = textFiles;
+        }
+
+        private void listFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

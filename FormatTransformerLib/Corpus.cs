@@ -8,6 +8,8 @@ namespace FormatTransformerLib
     {
         private List<ICorpora> corpora = new List<ICorpora>();
 
+        //private Dictionary<string, ICorpora> t = new Dictionary<string, ICorpora>();
+
         public string Title { get; set; }
 
         public void Add(ICorpora element)
@@ -28,6 +30,11 @@ namespace FormatTransformerLib
         public ICorpora Get()
         {
             throw new NotImplementedException();
+        }
+
+        public List<ICorpora> GetCorpora()
+        {
+            return corpora;
         }
     }
 }

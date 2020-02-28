@@ -22,8 +22,8 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
         /// <summary>
         /// Подключение к корпусу на локальном диске.
-        /// Если корпуса не существует, то создать.
-        /// Иначе считать все файлы, находящиеся в нём.
+        /// Если корпуса не существует, то создать,
+        /// иначе считать все файлы, находящиеся в нём.
         /// </summary>
         public void Connect()
         {
@@ -58,9 +58,14 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             }
         }
 
-        public Corpus GetCorpora()
+        public void AddTextFile(ICorpora corpus, TextFile file)
         {
-            return corpora;
+            corpus.Add(file);
+        }
+
+        public List<ICorpora> GetCorpora()
+        {
+            return corpora.GetCorpora();
         }
     }
 }

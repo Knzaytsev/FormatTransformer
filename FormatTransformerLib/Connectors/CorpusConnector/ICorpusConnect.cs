@@ -8,7 +8,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
     {
         public void Connect();
 
-        public Corpus GetCorpora();
+        public List<ICorpora> GetCorpora();
 
         public void AddCorpus(string title);
     }
