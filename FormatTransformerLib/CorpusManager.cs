@@ -29,5 +29,15 @@ namespace FormatTransformerLib
         {
             connector.AddFile(corpus, fileName);
         }
+
+        public void RemoveCorpus(Corpus corpus)
+        {
+            connector.RemoveCorpus(corpus);
+        }
+
+        public void EditCorpus(ICorpora corpus, string title)
+        {
+            connector.EditCorpus(corpus, title);
+        }
     }
 }

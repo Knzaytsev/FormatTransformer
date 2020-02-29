@@ -74,5 +74,19 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             FileInfo fileInfo = new FileInfo(fileName);
             fileInfo.CopyTo(connectorString + @"\CorporaStore\" + corpus.Title + @"\" + Path.GetFileName(fileName));
         }
+
+        public void RemoveCorpus(Corpus corpus)
+        {
+            corpora.Delete(corpus);
+            DirectoryInfo directoryInfo = new DirectoryInfo(connectorString + @"\CorporaStore\" + corpus.Title);
+            directoryInfo.Delete(true);
+        }
+
+        public void EditCorpus(ICorpora corpus, string title)
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(connectorString + @"\CorporaStore\" + corpus.Title);
+            directoryInfo.MoveTo(connectorString + @"\CorporaStore\" + title);
+            corpus.Title = title;
+        }
     }
 }

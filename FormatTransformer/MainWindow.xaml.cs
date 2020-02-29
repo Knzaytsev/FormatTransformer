@@ -86,5 +86,17 @@ namespace FormatTransformer
                 corpusManager.AddFile(corpus, opf.FileName);
             }
         }
+
+        private void deleteCorpus_Click(object sender, RoutedEventArgs e)
+        {
+            var corpus = (Corpus)listCorpora.SelectedItem;
+            corpusManager.RemoveCorpus(corpus);
+        }
+
+        private void editCorpus_Click(object sender, RoutedEventArgs e)
+        {
+            var corpus = (Corpus)listCorpora.SelectedItem;
+            corpusManager.EditCorpus(corpus, "SomeCorpus");
+        }
     }
 }
