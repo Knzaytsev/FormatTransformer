@@ -1,0 +1,62 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="text">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="tag" type="xs:string"/>
+				<xs:element name="paragraph">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="sentence">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="source" type="xs:string"/>
+										<xs:element name="token">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="tfr">
+														<xs:complexType>																	
+															<xs:sequence>
+																<xs:element name="v">
+																	<xs:complexType>																	
+																		<xs:sequence>
+																			<xs:element name="l">
+																				<xs:complexType>																	
+																					<xs:sequence>
+																						<xs:element name="g">
+																							<xs:complexType>
+																								<xs:attribute name="v" type="xs:string" use="required"/>
+																							</xs:complexType>
+																						</xs:element>
+																					</xs:sequence>
+																					<xs:attribute name="id" type="xs:int" use="required"/>
+																					<xs:attribute name="t" type="xs:string" use="required"/>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+															<xs:attribute name="rev_id" type="xs:int" use="required"/>
+															<xs:attribute name="t" type="xs:string" use="required"/>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="id" type="xs:int" use="required"/>
+												<xs:attribute name="text" type="xs:string" use="required"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="id" type="xs:int"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="id" type="xs:int"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:int" use="required"/>
+			<xs:attribute name="parent" type="xs:int" use="required"/>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
