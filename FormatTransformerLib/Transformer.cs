@@ -10,7 +10,7 @@ namespace FormatTransformerLib
     {
         private string file = @"..\..\..\..\FormatTransformer\CorporaStore\books.xml";
         private string rule = @"..\..\..\..\FormatTransformer\RuleStore\Rule.xsl";
-        private string result = @"..\..\..\..\FormatTransformer\CorporaStore\result.html";
+        private object result = @"..\..\..\..\FormatTransformer\CorporaStore\result.html";
 
         public void AddFile(string file)
         {
@@ -29,7 +29,7 @@ namespace FormatTransformerLib
 
         public void Transform(ITransformer transformer)
         {
-            transformer.Transform(file, rule, result);
+            result = transformer.Transform(file, rule, result);
         }
 
         public object GetResult()

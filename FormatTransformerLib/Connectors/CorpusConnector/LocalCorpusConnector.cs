@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FormatTransformerLib.Connectors.CorpusConnector
 {
-    public class LocalCorpusConnector : ICorpusConnect
+    public class LocalCorpusConnector : ICorpusConnector
     {
         private string connectorString = @"..\..\..\";
         private Corpus corpora = new Corpus();
@@ -87,6 +87,11 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             DirectoryInfo directoryInfo = new DirectoryInfo(connectorString + @"\CorporaStore\" + corpus.Title);
             directoryInfo.MoveTo(connectorString + @"\CorporaStore\" + title);
             corpus.Title = title;
+        }
+
+        public void AddCorpus(object corpus)
+        {
+            throw new NotImplementedException();
         }
     }
 }

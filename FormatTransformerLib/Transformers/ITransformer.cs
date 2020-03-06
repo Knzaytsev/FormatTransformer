@@ -6,6 +6,6 @@ namespace FormatTransformerLib
 {
     public interface ITransformer
     {
-        public void Transform(object input, object rule, object output);
+        public object Transform(object input, object rule, object output);
     }
 }

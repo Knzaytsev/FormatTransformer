@@ -7,12 +7,17 @@ namespace FormatTransformerLib
 {
     public class CorpusManager
     {
-        private ICorpusConnect connector;
+        private ICorpusConnector connector;
 
-        public void ConnectCorpus(ICorpusConnect connector)
+        public void ConnectCorpus(ICorpusConnector connector)
         {
             this.connector = connector;
             connector.Connect();
+        }
+
+        public void AddCorpus(object corpus)
+        {
+            connector.AddCorpus(corpus);
         }
 
         public void AddCorpus(string title)

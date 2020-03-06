@@ -10,7 +10,7 @@ namespace FormatTransformerLib
 {
     public class XMLTransformer : ITransformer
     {
-        public void Transform(object input, object rule, object output)
+        public object Transform(object input, object rule, object output)
         {
             XsltSettings settings = new XsltSettings();
             settings.EnableScript = true;
@@ -18,6 +18,7 @@ namespace FormatTransformerLib
             xslt.Load(rule as string, settings, null);
             xslt.Load(rule as string, settings, null);
             xslt.Transform(input as string, output as string);
+            return output;
         }
     }
 }
