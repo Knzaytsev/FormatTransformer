@@ -70,9 +70,11 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
         public void AddFile(Corpus corpus, string fileName)
         {
-            corpus.Add(new TextFile() { Title = Path.GetFileName(fileName), Info = fileName });
+            var path = connectorString + @"\CorporaStore\" + corpus.Title + @"\" + Path.GetFileName(fileName);
+            corpus.Add(new TextFile() { Title = Path.GetFileName(fileName), Info = path });
             FileInfo fileInfo = new FileInfo(fileName);
-            fileInfo.CopyTo(connectorString + @"\CorporaStore\" + corpus.Title + @"\" + Path.GetFileName(fileName));
+            fileInfo.CopyTo(path);
+            fileInfo.Delete();
         }
 
         public void RemoveCorpus(ICorpora corpus)

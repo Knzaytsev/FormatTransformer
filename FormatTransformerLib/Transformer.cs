@@ -8,9 +8,9 @@ namespace FormatTransformerLib
 {
     public class Transformer
     {
-        private string file = @"..\..\..\..\FormatTransformer\CorporaStore\books.xml";
-        private string rule = @"..\..\..\..\FormatTransformer\RuleStore\Rule.xsl";
-        private object result = @"..\..\..\..\FormatTransformer\CorporaStore\result.html";
+        private string file;
+        private string rule;
+        private object result = "result";
 
         public void AddFile(string file)
         {
