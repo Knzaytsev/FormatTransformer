@@ -8,7 +8,7 @@ using System.Xml.XPath;
 
 namespace FormatTransformerLib
 {
-    public class XMLTransformer : ITransform
+    public class XMLTransformer : ITransformer
     {
         public void Transform(object input, object rule, object output)
         {

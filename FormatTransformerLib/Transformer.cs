@@ -27,7 +27,7 @@ namespace FormatTransformerLib
             return false;
         }
 
-        public void Transform(ITransform transformer)
+        public void Transform(ITransformer transformer)
         {
             transformer.Transform(file, rule, result);
         }

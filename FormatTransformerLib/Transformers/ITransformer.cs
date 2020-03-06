@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FormatTransformerLib
 {
-    public interface ITransform
+    public interface ITransformer
     {
         public void Transform(object input, object rule, object output);
     }
