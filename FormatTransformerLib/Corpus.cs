@@ -11,6 +11,7 @@ namespace FormatTransformerLib
         //private Dictionary<string, ICorpora> t = new Dictionary<string, ICorpora>();
 
         public string Title { get; set; }
+        public string Info { get; set; }
 
         public void Add(ICorpora element)
         {

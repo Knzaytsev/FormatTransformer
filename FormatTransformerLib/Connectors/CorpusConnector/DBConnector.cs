@@ -10,6 +10,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
     {
         private string connectionString = "";
         private SqlConnection connection;
+        private Corpus corpus = new Corpus() { Title = "Corpora" };
 
         public DBConnector(string connectionString)
         {
@@ -19,13 +20,17 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
         public void AddCorpus(object corpus)
         {
             var dataSet = corpus as DataSet;
-            using (connection)
+            using (connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
                 foreach (DataTable t in dataSet.Tables)
                 {
-                    new SqlCommand(string.Format("SET IDENTITY_INSERT {0} ON;", t.TableName), connection).ExecuteNonQuery();
+                    try
+                    {
+                        new SqlCommand(string.Format("SET IDENTITY_INSERT {0} ON;", t.TableName), connection).ExecuteNonQuery();
+                    }
+                    catch { }
                     foreach (DataRow r in t.Rows)
                     {
                         var values = "";
@@ -45,7 +50,20 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
                         var command = new SqlCommand(cmd, connection);
                         command.ExecuteNonQuery();
                     }
-                    new SqlCommand(string.Format("SET IDENTITY_INSERT {0} OFF;", t.TableName), connection).ExecuteNonQuery();
+                    try
+                    {
+                        new SqlCommand(string.Format("SET IDENTITY_INSERT {0} OFF;", t.TableName), connection).ExecuteNonQuery();
+                    }
+                    catch { }
+                }
+
+                foreach (DataRow r in dataSet.Tables["text"].Rows)
+                {
+                    this.corpus.Add(new TextFile()
+                    {
+                        Title = r[dataSet.Tables["text"].Columns["name"]].ToString(),
+                        Info = r[dataSet.Tables["text"].Columns["text_Id"]].ToString()
+                    });
                 }
             }
         }
@@ -72,12 +90,21 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
         public List<ICorpora> GetCorpora()
         {
-            throw new NotImplementedException();
+            return corpus.GetCorpora();
         }
 
-        public void RemoveCorpus(Corpus corpus)
+        public void RemoveCorpus(ICorpora corpus)
         {
-            throw new NotImplementedException();
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var cmd = string.Format("delete from text where text_Id = {0}", corpus.Info);
+                var command = new SqlCommand(cmd, connection);
+                command.ExecuteNonQuery();
+            }
+
+            this.corpus.Delete(corpus);
         }
     }
 }

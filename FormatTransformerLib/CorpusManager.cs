@@ -35,7 +35,7 @@ namespace FormatTransformerLib
             connector.AddFile(corpus, fileName);
         }
 
-        public void RemoveCorpus(Corpus corpus)
+        public void RemoveCorpus(ICorpora corpus)
         {
             connector.RemoveCorpus(corpus);
         }

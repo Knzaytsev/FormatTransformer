@@ -39,7 +39,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
                 {
                     var file = new TextFile()
                     {
-                        Path = f.FullName,
+                        Info = f.FullName,
                         Title = f.Name
                     };
                     corpus.Add(file);
@@ -70,12 +70,12 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
         public void AddFile(Corpus corpus, string fileName)
         {
-            corpus.Add(new TextFile() { Title = Path.GetFileName(fileName), Path = fileName });
+            corpus.Add(new TextFile() { Title = Path.GetFileName(fileName), Info = fileName });
             FileInfo fileInfo = new FileInfo(fileName);
             fileInfo.CopyTo(connectorString + @"\CorporaStore\" + corpus.Title + @"\" + Path.GetFileName(fileName));
         }
 
-        public void RemoveCorpus(Corpus corpus)
+        public void RemoveCorpus(ICorpora corpus)
         {
             corpora.Delete(corpus);
             DirectoryInfo directoryInfo = new DirectoryInfo(connectorString + @"\CorporaStore\" + corpus.Title);

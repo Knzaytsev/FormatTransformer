@@ -7,7 +7,7 @@ namespace FormatTransformerLib
     public class TextFile : ICorpora
     {
         public string Title { get; set; }
-        public string Path { get; set; }
+        public string Info { get; set; }
 
         public void Add(ICorpora element)
         {

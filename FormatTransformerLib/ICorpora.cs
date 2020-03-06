@@ -7,6 +7,7 @@ namespace FormatTransformerLib
     public interface ICorpora
     {
         public string Title { get; set; }
+        public string Info { get; set; }
         public void Add(ICorpora element);
 
         public void Delete(ICorpora element);
