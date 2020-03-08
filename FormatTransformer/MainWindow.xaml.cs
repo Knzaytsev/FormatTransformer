@@ -41,14 +41,18 @@ namespace FormatTransformer
 
         private void loadCorpora_Click(object sender, RoutedEventArgs e)
         {
-            corpusManager.ConnectCorpus(new LocalCorpusConnector());
-            var corpora = corpusManager.GetCorpora();
-            var collectionCorpora = new ObservableCollection<ICorpora>();
-            foreach(var c in corpora)
+            var form = new ConnectorForm();
+            if (form.ShowDialog() == true)
             {
-                collectionCorpora.Add(c);
+                corpusManager.ConnectCorpus(form.Connector);
+                var corpora = corpusManager.GetCorpora();
+                var collectionCorpora = new ObservableCollection<ICorpora>();
+                foreach (var c in corpora)
+                {
+                    collectionCorpora.Add(c);
+                }
+                listCorpora.ItemsSource = collectionCorpora;
             }
-            listCorpora.ItemsSource = collectionCorpora;
         }
 
         private void loadRules_Click(object sender, RoutedEventArgs e)
@@ -63,7 +67,7 @@ namespace FormatTransformer
 
         private void listCorpora_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var corpus = (Corpus)listCorpora.SelectedItem;
+            var corpus = (Icorpora)listCorpora.SelectedItem;
             var textFiles = new ObservableCollection<ICorpora>();
             foreach(var f in corpus.GetCorpora())
             {
@@ -79,7 +83,7 @@ namespace FormatTransformer
 
         private void addFile_Click(object sender, RoutedEventArgs e)
         {
-            var corpus = (Corpus)listCorpora.SelectedItem;
+            var corpus = (Icorpora)listCorpora.SelectedItem;
             var opf = new OpenFileDialog();
             if (opf.ShowDialog() == true)
             {
@@ -89,13 +93,13 @@ namespace FormatTransformer
 
         private void deleteCorpus_Click(object sender, RoutedEventArgs e)
         {
-            var corpus = (Corpus)listCorpora.SelectedItem;
+            var corpus = (Icorpora)listCorpora.SelectedItem;
             corpusManager.RemoveCorpus(corpus);
         }
 
         private void editCorpus_Click(object sender, RoutedEventArgs e)
         {
-            var corpus = (Corpus)listCorpora.SelectedItem;
+            var corpus = (Icorpora)listCorpora.SelectedItem;
             corpusManager.EditCorpus(corpus, "SomeCorpus");
         }
     }

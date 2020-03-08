@@ -10,7 +10,12 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
     {
         private string connectionString = "";
         private SqlConnection connection;
-        private Corpus corpus = new Corpus() { Title = "Corpora" };
+        private Icorpora corpus = new Icorpora() { Title = "Corpora" };
+
+        public DBConnector()
+        {
+
+        }
 
         public DBConnector(string connectionString)
         {
@@ -73,14 +78,36 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             throw new NotImplementedException();
         }
 
-        public void AddFile(Corpus corpus, string fileName)
+        public void AddFile(Icorpora corpus, string fileName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddFile(ICorpora corpus, string fileName, string newName)
         {
             throw new NotImplementedException();
         }
 
         public void Connect()
         {
-            connection = new SqlConnection(connectionString);
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var command = new SqlCommand("select * from text", connection);
+                var reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader["text_Id"].ToString();
+                        var title = reader["name"].ToString();
+
+                        corpus.Add(new TextFile() { Title = title, Info = id });
+                    }
+                }
+            }
         }
 
         public void EditCorpus(ICorpora corpus, string title)
@@ -90,7 +117,8 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
         public List<ICorpora> GetCorpora()
         {
-            return corpus.GetCorpora();
+            //return corpus.GetCorpora();
+            return new List<ICorpora>() { corpus };
         }
 
         public void RemoveCorpus(ICorpora corpus)

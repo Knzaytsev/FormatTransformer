@@ -8,7 +8,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
     public class LocalCorpusConnector : ICorpusConnector
     {
         private string connectorString = @"..\..\..\";
-        private Corpus corpora = new Corpus();
+        private Icorpora corpora = new Icorpora();
 
         public LocalCorpusConnector()
         {
@@ -34,7 +34,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             }
             foreach(var d in directoryInfo.GetDirectories())
             {
-                Corpus corpus = new Corpus() { Title = d.Name };
+                Icorpora corpus = new Icorpora() { Title = d.Name };
                 foreach (var f in d.GetFiles())
                 {
                     var file = new TextFile()
@@ -54,7 +54,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             if (!directoryInfo.Exists)
             {
                 directoryInfo.Create();
-                corpora.Add(new Corpus() { Title = title });
+                corpora.Add(new Icorpora() { Title = title });
             }
         }
 
@@ -68,12 +68,21 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             return corpora.GetCorpora();
         }
 
-        public void AddFile(Corpus corpus, string fileName)
+        public void AddFile(Icorpora corpus, string fileName)
         {
             var path = connectorString + @"\CorporaStore\" + corpus.Title + @"\" + Path.GetFileName(fileName);
             corpus.Add(new TextFile() { Title = Path.GetFileName(fileName), Info = path });
             FileInfo fileInfo = new FileInfo(fileName);
-            fileInfo.CopyTo(path);
+            fileInfo.CopyTo(path, true);
+            fileInfo.Delete();
+        }
+
+        public void AddFile(ICorpora corpus, string fileName, string newName)
+        {
+            var path = connectorString + @"\CorporaStore\" + corpus.Title + @"\" + newName;
+
+            FileInfo fileInfo = new FileInfo(fileName);
+            fileInfo.CopyTo(path, true);
             fileInfo.Delete();
         }
 

@@ -5,40 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FormatTransformer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="474" Width="800">
+        Title="MainWindow" Height="492" Width="798">
     <Grid>
-        <Button x:Name="transformButton" Content="Преобразовать" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="106" Click="transformButton_Click"/>
-        <Button x:Name="loadCorpora" Content="Загрузить корпус" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Click="loadCorpora_Click" Width="106"/>
-        <Button x:Name="loadRules" Content="Загрузить правила" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Click="loadRules_Click"/>
-        <Button x:Name="addCorpus" Content="Добавить корпус" HorizontalAlignment="Left" Margin="10,162,0,0" VerticalAlignment="Top" Click="addCorpus_Click" Width="106"/>
-        <DockPanel x:Name="corpusTree" HorizontalAlignment="Left" Height="414" LastChildFill="False" Margin="121,37,0,0" VerticalAlignment="Top" Width="329" Grid.ColumnSpan="2">
-            <ListBox x:Name="listCorpora" Width="328" SelectionChanged="listCorpora_SelectionChanged">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Path=Title}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </DockPanel>
-        <DockPanel LastChildFill="False" Margin="455,37,10,10">
-            <ListBox x:Name="listFiles" SelectionChanged="listFiles_SelectionChanged" RenderTransformOrigin="0.5,0.5" DockPanel.Dock="Left" Width="333">
-                <ListBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="1"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </ListBox.RenderTransform>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Title}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </DockPanel>
-        <Button x:Name="addFile" Content="Добавить файл" HorizontalAlignment="Left" Margin="10,112,0,0" VerticalAlignment="Top" Width="106" Click="addFile_Click"/>
-        <Button x:Name="deleteCorpus" Content="Удалить корпус" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="106" Click="deleteCorpus_Click"/>
-        <Button x:Name="editCorpus" Content="Редактировать корпус" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="106" Click="editCorpus_Click"/>
+        <TabControl>
+            <TabItem Header="Менеджер корпусов">
+                <Grid Background="#FFE5E5E5">
+                    <Button x:Name="loadCorpora" Content="Загрузить корпус" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="loadCorpora_Click" Width="106"/>
+                    <Button x:Name="addCorpus" Content="Добавить корпус" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Click="addCorpus_Click" Width="106"/>
+                    <DockPanel x:Name="corpusTree" LastChildFill="False" Margin="121,19,342,19">
+                        <ListBox x:Name="listCorpora" Width="328" SelectionChanged="listCorpora_SelectionChanged">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Title}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                    <DockPanel LastChildFill="False" Margin="455,19,8,19">
+                        <ListBox x:Name="listFiles" SelectionChanged="listFiles_SelectionChanged" Width="328">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Title}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                    <Button x:Name="addFile" Content="Добавить файл" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="106" Click="addFile_Click"/>
+                    <Button x:Name="deleteCorpus" Content="Удалить корпус" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Width="106" Click="deleteCorpus_Click"/>
+                    <Button x:Name="editCorpus" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="106" Click="editCorpus_Click">
+                        <TextBlock Text="Редактировать корпус" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </Button>
+                    <Button x:Name="deleteFile" Content="Удалить файл" HorizontalAlignment="Left" Margin="10,177,0,0" VerticalAlignment="Top" Width="106"/>
+                    <Button x:Name="editFile" HorizontalAlignment="Left" Margin="10,202,0,0" VerticalAlignment="Top" Width="106">
+                        <TextBox Text="Редактировать файл" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Менеджер правил">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
