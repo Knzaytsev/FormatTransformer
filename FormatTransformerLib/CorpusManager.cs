@@ -49,5 +49,15 @@ namespace FormatTransformerLib
         {
             connector.EditCorpus(corpus, title);
         }
+
+        public void RemoveFile(Icorpora corpus, ICorpora file)
+        {
+            connector.RemoveFile(corpus, file);
+        }
+
+        public void EditFile(ICorpora corpus, ICorpora file, string textInfo)
+        {
+            connector.EditFile(corpus, file, textInfo);
+        }
     }
 }

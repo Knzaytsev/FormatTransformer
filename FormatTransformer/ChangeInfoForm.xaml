@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FormatTransformer"
         mc:Ignorable="d"
-        Title="ChangeInfoForm" Height="450" Width="800">
+        Title="ChangeInfoForm" Height="107" Width="155">
     <Grid>
-        
+        <TextBox x:Name="infoField" HorizontalAlignment="Left" Margin="10,36,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="labelInfo" Content="Label" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="infoButton" Content="Button" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Width="92" Click="infoButton_Click"/>
+
     </Grid>
 </Window>

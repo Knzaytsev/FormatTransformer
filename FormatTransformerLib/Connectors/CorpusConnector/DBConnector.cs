@@ -88,6 +88,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             throw new NotImplementedException();
         }
 
+        // TODO: изменить на подключение к корпусу, а не к текстам.
         public void Connect()
         {
             using (connection = new SqlConnection(connectionString))
@@ -115,12 +116,28 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             throw new NotImplementedException();
         }
 
+        public void EditFile(ICorpora corpus, ICorpora file, string textInfo)
+        {
+            using(connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var command = new SqlCommand(string.Format("update text set name = {0} where text_Id = {1}",
+                    "'" + textInfo + "'", file.Info), connection);
+                command.ExecuteNonQuery();
+            }
+
+            file.Title = textInfo;
+        }
+
         public List<ICorpora> GetCorpora()
         {
             //return corpus.GetCorpora();
             return new List<ICorpora>() { corpus };
         }
 
+
+        //TODO: Изменить на удаление корпуса, а не удаление текста.
         public void RemoveCorpus(ICorpora corpus)
         {
             using (connection = new SqlConnection(connectionString))
@@ -133,6 +150,20 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             }
 
             this.corpus.Delete(corpus);
+        }
+
+        public void RemoveFile(ICorpora corpus, ICorpora file)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var cmd = string.Format("delete from text where text_Id = {0}", corpus.Info);
+                var command = new SqlCommand(cmd, connection);
+                command.ExecuteNonQuery();
+            }
+
+            corpus.Delete(file);
         }
     }
 }

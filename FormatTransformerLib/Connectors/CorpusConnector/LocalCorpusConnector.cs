@@ -70,7 +70,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
         public void AddFile(Icorpora corpus, string fileName)
         {
-            var path = connectorString + @"\CorporaStore\" + corpus.Title + @"\" + Path.GetFileName(fileName);
+            var path = connectorString + @"CorporaStore\" + corpus.Title + @"\" + Path.GetFileName(fileName);
             corpus.Add(new TextFile() { Title = Path.GetFileName(fileName), Info = path });
             FileInfo fileInfo = new FileInfo(fileName);
             fileInfo.CopyTo(path, true);
@@ -79,7 +79,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
         public void AddFile(ICorpora corpus, string fileName, string newName)
         {
-            var path = connectorString + @"\CorporaStore\" + corpus.Title + @"\" + newName;
+            var path = connectorString + @"CorporaStore\" + corpus.Title + @"\" + newName;
 
             FileInfo fileInfo = new FileInfo(fileName);
             fileInfo.CopyTo(path, true);
@@ -89,20 +89,39 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
         public void RemoveCorpus(ICorpora corpus)
         {
             corpora.Delete(corpus);
-            DirectoryInfo directoryInfo = new DirectoryInfo(connectorString + @"\CorporaStore\" + corpus.Title);
+            DirectoryInfo directoryInfo = new DirectoryInfo(connectorString + @"CorporaStore\" + corpus.Title);
             directoryInfo.Delete(true);
         }
 
         public void EditCorpus(ICorpora corpus, string title)
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo(connectorString + @"\CorporaStore\" + corpus.Title);
-            directoryInfo.MoveTo(connectorString + @"\CorporaStore\" + title);
+            DirectoryInfo directoryInfo = new DirectoryInfo(connectorString + @"CorporaStore\" + corpus.Title);
+            directoryInfo.MoveTo(connectorString + @"CorporaStore\" + title);
             corpus.Title = title;
         }
 
         public void AddCorpus(object corpus)
         {
             throw new NotImplementedException();
+        }
+
+        public void RemoveFile(ICorpora corpus, ICorpora file)
+        {
+            var fileInfo = new FileInfo(file.Info);
+            fileInfo.Delete();
+            corpus.Delete(file);
+        }
+
+        public void EditFile(ICorpora corpus, ICorpora file, string textInfo)
+        {
+            var path = connectorString + @"CorporaStore\" + corpus.Title + @"\" + file.Title;
+            var newPath = connectorString + @"CorporaStore\" + corpus.Title + @"\" + textInfo;
+
+            var fileInfo = new FileInfo(path);
+            fileInfo.MoveTo(newPath);
+
+            file.Title = textInfo;
+            file.Info = newPath;
         }
     }
 }

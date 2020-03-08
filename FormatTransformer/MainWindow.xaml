@@ -35,9 +35,9 @@
                     <Button x:Name="editCorpus" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="106" Click="editCorpus_Click">
                         <TextBlock Text="Редактировать корпус" TextWrapping="Wrap" TextAlignment="Center"/>
                     </Button>
-                    <Button x:Name="deleteFile" Content="Удалить файл" HorizontalAlignment="Left" Margin="10,177,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Button x:Name="editFile" HorizontalAlignment="Left" Margin="10,202,0,0" VerticalAlignment="Top" Width="106">
-                        <TextBox Text="Редактировать файл" TextWrapping="Wrap" TextAlignment="Center"/>
+                    <Button x:Name="deleteFile" Content="Удалить файл" HorizontalAlignment="Left" Margin="10,177,0,0" VerticalAlignment="Top" Width="106" Click="deleteFile_Click"/>
+                    <Button x:Name="editFile" HorizontalAlignment="Left" Margin="10,202,0,0" VerticalAlignment="Top" Width="106" Click="editFile_Click">
+                        <TextBlock Text="Редактировать файл" TextWrapping="Wrap" TextAlignment="Center"/>
                     </Button>
                 </Grid>
             </TabItem>

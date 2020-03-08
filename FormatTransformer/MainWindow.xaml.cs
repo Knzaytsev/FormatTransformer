@@ -25,12 +25,44 @@ namespace FormatTransformer
     /// </summary>
     public partial class MainWindow : Window
     {
+        delegate void UpdateElementHandler();
+        event UpdateElementHandler UpdateCorpus;
+        event UpdateElementHandler UpdateFile;
+
         private CorpusManager corpusManager = new CorpusManager();
         private RuleManager ruleManager = new RuleManager();
 
         public MainWindow()
         {
             InitializeComponent();
+            UpdateCorpus += updateListCorpora;
+            UpdateFile += updateListFiles;
+        }
+
+        private void updateListFiles()
+        {
+            var corpus = (Icorpora)listCorpora.SelectedItem;
+            if (corpus is null)
+                return;
+            var textFiles = new ObservableCollection<ICorpora>();
+            foreach (var f in corpus.GetCorpora())
+            {
+                textFiles.Add(f);
+            }
+            listFiles.ItemsSource = textFiles;
+        }
+
+        private void updateListCorpora()
+        {
+            var corpora = corpusManager.GetCorpora();
+            if (corpora is null)
+                return;
+            var collectionCorpora = new ObservableCollection<ICorpora>();
+            foreach (var c in corpora)
+            {
+                collectionCorpora.Add(c);
+            }
+            listCorpora.ItemsSource = collectionCorpora;
         }
 
         private void transformButton_Click(object sender, RoutedEventArgs e)
@@ -45,13 +77,7 @@ namespace FormatTransformer
             if (form.ShowDialog() == true)
             {
                 corpusManager.ConnectCorpus(form.Connector);
-                var corpora = corpusManager.GetCorpora();
-                var collectionCorpora = new ObservableCollection<ICorpora>();
-                foreach (var c in corpora)
-                {
-                    collectionCorpora.Add(c);
-                }
-                listCorpora.ItemsSource = collectionCorpora;
+                UpdateCorpus?.Invoke();
             }
         }
 
@@ -62,18 +88,17 @@ namespace FormatTransformer
 
         private void addCorpus_Click(object sender, RoutedEventArgs e)
         {
-            corpusManager.AddCorpus("AnotherCorpus");
+            var form = new ChangeInfoForm("Название корпуса:", "Добавить");
+            if(form.ShowDialog() == true)
+            {
+                corpusManager.AddCorpus(form.TextInfo);
+                UpdateCorpus?.Invoke();
+            }
         }
 
         private void listCorpora_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var corpus = (Icorpora)listCorpora.SelectedItem;
-            var textFiles = new ObservableCollection<ICorpora>();
-            foreach(var f in corpus.GetCorpora())
-            {
-                textFiles.Add(f);
-            }
-            listFiles.ItemsSource = textFiles;
+            UpdateFile?.Invoke();
         }
 
         private void listFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -88,6 +113,7 @@ namespace FormatTransformer
             if (opf.ShowDialog() == true)
             {
                 corpusManager.AddFile(corpus, opf.FileName);
+                UpdateFile?.Invoke();
             }
         }
 
@@ -95,12 +121,39 @@ namespace FormatTransformer
         {
             var corpus = (Icorpora)listCorpora.SelectedItem;
             corpusManager.RemoveCorpus(corpus);
+            UpdateCorpus?.Invoke();
         }
 
         private void editCorpus_Click(object sender, RoutedEventArgs e)
         {
             var corpus = (Icorpora)listCorpora.SelectedItem;
-            corpusManager.EditCorpus(corpus, "SomeCorpus");
+            var form = new ChangeInfoForm("Название корпуса:", "Изменить");
+            if(form.ShowDialog() == true)
+            {
+                corpusManager.EditCorpus(corpus, form.TextInfo);
+                UpdateCorpus?.Invoke();
+            }
+        }
+
+        private void deleteFile_Click(object sender, RoutedEventArgs e)
+        {
+            var corpus = (Icorpora)listCorpora.SelectedItem;
+            var file = (ICorpora)listFiles.SelectedItem;
+            corpusManager.RemoveFile(corpus, file);
+            UpdateFile?.Invoke();
+        }
+
+        private void editFile_Click(object sender, RoutedEventArgs e)
+        {
+            var corpus = (ICorpora)listCorpora.SelectedItem;
+            var file = (ICorpora)listFiles.SelectedItem;
+
+            var form = new ChangeInfoForm("Название файла", "Изменить");
+            if(form.ShowDialog() == true)
+            {
+                corpusManager.EditFile(corpus, file, form.TextInfo);
+                UpdateFile?.Invoke();
+            }
         }
     }
 }

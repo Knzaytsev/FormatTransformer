@@ -17,5 +17,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
         void AddFile(ICorpora corpus, string fileName, string newName);
         void RemoveCorpus(ICorpora corpus);
         void EditCorpus(ICorpora corpus, string title);
+        void RemoveFile(ICorpora corpus, ICorpora file);
+        void EditFile(ICorpora corpus, ICorpora file, string textInfo);
     }
 }

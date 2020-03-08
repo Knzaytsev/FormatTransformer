@@ -17,9 +17,19 @@ namespace FormatTransformer
     /// </summary>
     public partial class ChangeInfoForm : Window
     {
-        public ChangeInfoForm()
+        public string TextInfo { get; set; }
+
+        public ChangeInfoForm(string label, string button)
         {
             InitializeComponent();
+            labelInfo.Content = label;
+            infoButton.Content = button;
+        }
+
+        private void infoButton_Click(object sender, RoutedEventArgs e)
+        {
+            TextInfo = infoField.Text;
+            DialogResult = true;
         }
     }
 }
