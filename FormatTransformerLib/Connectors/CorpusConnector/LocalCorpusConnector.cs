@@ -58,11 +58,6 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             }
         }
 
-        public void AddTextFile(ICorpora corpus, TextFile file)
-        {
-            corpus.Add(file);
-        }
-
         public List<ICorpora> GetCorpora()
         {
             return corpora.GetCorpora();
@@ -74,7 +69,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             corpus.Add(new TextFile() { Title = Path.GetFileName(fileName), Info = path });
             FileInfo fileInfo = new FileInfo(fileName);
             fileInfo.CopyTo(path, true);
-            fileInfo.Delete();
+            //fileInfo.Delete();
         }
 
         public void AddFile(ICorpora corpus, string fileName, string newName)

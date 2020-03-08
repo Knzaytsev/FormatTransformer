@@ -17,24 +17,24 @@ namespace FormatTransformerLib
             rules = connect.GetRules();
         }
 
-        public void AddRule()
+        public void AddRule(string fileName)
         {
-
+            connect.AddRule(fileName);
         }
 
-        public void DeleteRule()
+        public void DeleteRule(Rule rule)
         {
-
+            connect.DeleteRule(rule);
         }
 
-        public void RenameRule()
+        public void RenameRule(Rule rule, string newName)
         {
-
+            connect.RenameRule(rule, newName);
         }
 
-        public void GetRule()
+        public List<Rule> GetRule()
         {
-
+            return rules;
         }
     }
 }

@@ -28,6 +28,7 @@ namespace FormatTransformer
         delegate void UpdateElementHandler();
         event UpdateElementHandler UpdateCorpus;
         event UpdateElementHandler UpdateFile;
+        event UpdateElementHandler UpdateRule;
 
         private CorpusManager corpusManager = new CorpusManager();
         private RuleManager ruleManager = new RuleManager();
@@ -37,6 +38,7 @@ namespace FormatTransformer
             InitializeComponent();
             UpdateCorpus += updateListCorpora;
             UpdateFile += updateListFiles;
+            UpdateRule += updateRules;
         }
 
         private void updateListFiles()
@@ -79,11 +81,6 @@ namespace FormatTransformer
                 corpusManager.ConnectCorpus(form.Connector);
                 UpdateCorpus?.Invoke();
             }
-        }
-
-        private void loadRules_Click(object sender, RoutedEventArgs e)
-        {
-            ruleManager.ConnectRules(new LocalRuleConnector());
         }
 
         private void addCorpus_Click(object sender, RoutedEventArgs e)
@@ -153,6 +150,65 @@ namespace FormatTransformer
             {
                 corpusManager.EditFile(corpus, file, form.TextInfo);
                 UpdateFile?.Invoke();
+            }
+        }
+
+        string fileName;
+        private void selectFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if(ofd.ShowDialog() == true)
+            {
+                nameFileLabel.Content = ofd.FileName;
+                fileName = ofd.FileName;
+            }
+        }
+
+        private void updateRules()
+        {
+            ruleManager = new RuleManager();
+            ruleManager.ConnectRules(new LocalRuleConnector());
+
+            var ruleFiles = new ObservableCollection<Rule>();
+            foreach (var r in ruleManager.GetRule())
+            {
+                ruleFiles.Add(r);
+            }
+            listRules.ItemsSource = ruleFiles;
+        }
+
+        private void deleteRule_Click(object sender, RoutedEventArgs e)
+        {
+            var rule = (Rule)listRules.SelectedItem;
+
+            ruleManager = new RuleManager();
+            ruleManager.DeleteRule(rule);
+            UpdateRule?.Invoke();
+        }
+
+        private void loadRules_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateRule?.Invoke();
+        }
+
+        private void editRule_Click(object sender, RoutedEventArgs e)
+        {
+            var rule = (Rule)listRules.SelectedItem;
+
+            var form = new ChangeInfoForm("Название правила:", "Изменить");
+            if(form.ShowDialog() == true)
+            {
+                ruleManager.RenameRule(rule, form.TextInfo);
+            }
+            UpdateRule?.Invoke();
+        }
+
+        private void addRule_Click(object sender, RoutedEventArgs e)
+        {
+            var ofd = new OpenFileDialog();
+            if(ofd.ShowDialog() == true)
+            {
+                ruleManager.AddRule(ofd.FileName);
             }
         }
     }

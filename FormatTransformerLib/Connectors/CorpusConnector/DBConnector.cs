@@ -113,7 +113,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
         public void EditCorpus(ICorpora corpus, string title)
         {
-            throw new NotImplementedException();
+            corpus.Title = title;
         }
 
         public void EditFile(ICorpora corpus, ICorpora file, string textInfo)
@@ -144,7 +144,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             {
                 connection.Open();
 
-                var cmd = string.Format("delete from text where text_Id = {0}", corpus.Info);
+                var cmd = string.Format("delete from text where text_Id = {0}", "'" + corpus.Info + "'");
                 var command = new SqlCommand(cmd, connection);
                 command.ExecuteNonQuery();
             }
@@ -158,7 +158,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             {
                 connection.Open();
 
-                var cmd = string.Format("delete from text where text_Id = {0}", corpus.Info);
+                var cmd = string.Format("delete from text where text_Id = {0}", "'" + corpus.Info + "'");
                 var command = new SqlCommand(cmd, connection);
                 command.ExecuteNonQuery();
             }
