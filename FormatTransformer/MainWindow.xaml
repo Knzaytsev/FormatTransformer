@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="492" Width="798">
     <Grid>
-        <TabControl>
+        <TabControl x:Name="tabControlManagers" SelectionChanged="tabItem_SelectionChanged">
             <TabItem Header="Менеджер корпусов">
                 <Grid Background="#FFE5E5E5">
                     <Button x:Name="loadCorpora" Content="Загрузить корпус" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="loadCorpora_Click" Width="106"/>
@@ -60,12 +60,19 @@
                     </Button>
                 </Grid>
             </TabItem>
-            <TabItem Header="Менеджер преобразований">
+            <TabItem x:Name="transformer" Header="Менеджер преобразований">
                 <Grid>
                     <Button x:Name="selectFile" Content="Выбрать файл" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top" Click="selectFile_Click"/>
                     <Label x:Name="nameFileLabel" Content="Файл" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="ruleFile" HorizontalAlignment="Left" Margin="105,53,0,0" VerticalAlignment="Top" Width="120"/>
-                    <Button x:Name="transformButton" Content="Преобразовать" HorizontalAlignment="Left" Margin="239,55,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="ruleFile" HorizontalAlignment="Left" Margin="105,53,0,0" VerticalAlignment="Top" Width="120">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Title}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button x:Name="transformButton" Content="Преобразовать" HorizontalAlignment="Left" Margin="239,55,0,0" VerticalAlignment="Top" Click="transformButton_Click"/>
+                    <Button x:Name="saveTransformedFile" Content="Сохранить" HorizontalAlignment="Left" Margin="340,55,0,0" VerticalAlignment="Top" Click="saveTransformedFile_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>

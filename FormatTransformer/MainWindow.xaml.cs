@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using FormatTransformerLib;
 using FormatTransformerLib.Connectors.CorpusConnector;
 using FormatTransformerLib.Connectors.RuleConnector;
+using FormatTransformerLib.Transformers;
 using Microsoft.Win32;
 
 namespace FormatTransformer
@@ -65,12 +66,6 @@ namespace FormatTransformer
                 collectionCorpora.Add(c);
             }
             listCorpora.ItemsSource = collectionCorpora;
-        }
-
-        private void transformButton_Click(object sender, RoutedEventArgs e)
-        {
-            var transformer = new Transformer();
-            transformer.Transform(new XMLTransformer());
         }
 
         private void loadCorpora_Click(object sender, RoutedEventArgs e)
@@ -154,6 +149,8 @@ namespace FormatTransformer
         }
 
         string fileName;
+        object result;
+
         private void selectFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -209,6 +206,36 @@ namespace FormatTransformer
             if(ofd.ShowDialog() == true)
             {
                 ruleManager.AddRule(ofd.FileName);
+            }
+        }
+
+        private void tabItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((TabItem)tabControlManagers.SelectedItem).Name == "transformer")
+            {
+                ruleManager = new RuleManager();
+                ruleManager.ConnectRules(new LocalRuleConnector());
+                ruleFile.ItemsSource = new ObservableCollection<Rule>(ruleManager.GetRule());
+            }
+        }
+
+        private void transformButton_Click(object sender, RoutedEventArgs e)
+        {
+            var transformer = new Transformer();
+            transformer.AddFile(fileName);
+            transformer.AddRule(((Rule)ruleFile.SelectedItem).Info);
+            transformer.Transform(new DBTransformer());
+            result = transformer.GetResult();
+        }
+
+        private void saveTransformedFile_Click(object sender, RoutedEventArgs e)
+        {
+            var form = new ConnectorForm();
+            if(form.ShowDialog() == true)
+            {
+                corpusManager = new CorpusManager();
+                corpusManager.ConnectCorpus(form.Connector);
+                corpusManager.AddCorpus(result);
             }
         }
     }
