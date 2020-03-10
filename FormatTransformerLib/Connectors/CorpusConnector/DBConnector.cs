@@ -10,7 +10,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
     {
         private string connectionString = "";
         private SqlConnection connection;
-        private Icorpora corpus = new Icorpora() { Title = "Corpora" };
+        private Corpus corpus = new Corpus() { Title = "Corpora" };
 
         public DBConnector()
         {
@@ -78,7 +78,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             throw new NotImplementedException();
         }
 
-        public void AddFile(Icorpora corpus, string fileName)
+        public void AddFile(Corpus corpus, string fileName)
         {
             throw new NotImplementedException();
         }

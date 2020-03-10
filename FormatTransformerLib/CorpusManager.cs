@@ -30,7 +30,7 @@ namespace FormatTransformerLib
             return connector.GetCorpora();
         }
 
-        public void AddFile(Icorpora corpus, string fileName)
+        public void AddFile(Corpus corpus, string fileName)
         {
             connector.AddFile(corpus, fileName);
         }
@@ -50,7 +50,7 @@ namespace FormatTransformerLib
             connector.EditCorpus(corpus, title);
         }
 
-        public void RemoveFile(Icorpora corpus, ICorpora file)
+        public void RemoveFile(Corpus corpus, ICorpora file)
         {
             connector.RemoveFile(corpus, file);
         }

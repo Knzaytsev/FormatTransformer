@@ -44,7 +44,7 @@ namespace FormatTransformer
 
         private void updateListFiles()
         {
-            var corpus = (Icorpora)listCorpora.SelectedItem;
+            var corpus = (Corpus)listCorpora.SelectedItem;
             if (corpus is null)
                 return;
             var textFiles = new ObservableCollection<ICorpora>();
@@ -100,7 +100,7 @@ namespace FormatTransformer
 
         private void addFile_Click(object sender, RoutedEventArgs e)
         {
-            var corpus = (Icorpora)listCorpora.SelectedItem;
+            var corpus = (Corpus)listCorpora.SelectedItem;
             var opf = new OpenFileDialog();
             if (opf.ShowDialog() == true)
             {
@@ -111,14 +111,14 @@ namespace FormatTransformer
 
         private void deleteCorpus_Click(object sender, RoutedEventArgs e)
         {
-            var corpus = (Icorpora)listCorpora.SelectedItem;
+            var corpus = (Corpus)listCorpora.SelectedItem;
             corpusManager.RemoveCorpus(corpus);
             UpdateCorpus?.Invoke();
         }
 
         private void editCorpus_Click(object sender, RoutedEventArgs e)
         {
-            var corpus = (Icorpora)listCorpora.SelectedItem;
+            var corpus = (Corpus)listCorpora.SelectedItem;
             var form = new ChangeInfoForm("Название корпуса:", "Изменить");
             if(form.ShowDialog() == true)
             {
@@ -129,7 +129,7 @@ namespace FormatTransformer
 
         private void deleteFile_Click(object sender, RoutedEventArgs e)
         {
-            var corpus = (Icorpora)listCorpora.SelectedItem;
+            var corpus = (Corpus)listCorpora.SelectedItem;
             var file = (ICorpora)listFiles.SelectedItem;
             corpusManager.RemoveFile(corpus, file);
             UpdateFile?.Invoke();
@@ -145,19 +145,6 @@ namespace FormatTransformer
             {
                 corpusManager.EditFile(corpus, file, form.TextInfo);
                 UpdateFile?.Invoke();
-            }
-        }
-
-        string fileName;
-        object result;
-
-        private void selectFile_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if(ofd.ShowDialog() == true)
-            {
-                nameFileLabel.Content = ofd.FileName;
-                fileName = ofd.FileName;
             }
         }
 
@@ -209,34 +196,10 @@ namespace FormatTransformer
             }
         }
 
-        private void tabItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void transformingButton_Click(object sender, RoutedEventArgs e)
         {
-            if (((TabItem)tabControlManagers.SelectedItem).Name == "transformer")
-            {
-                ruleManager = new RuleManager();
-                ruleManager.ConnectRules(new LocalRuleConnector());
-                ruleFile.ItemsSource = new ObservableCollection<Rule>(ruleManager.GetRule());
-            }
-        }
-
-        private void transformButton_Click(object sender, RoutedEventArgs e)
-        {
-            var transformer = new Transformer();
-            transformer.AddFile(fileName);
-            transformer.AddRule(((Rule)ruleFile.SelectedItem).Info);
-            transformer.Transform(new DBTransformer());
-            result = transformer.GetResult();
-        }
-
-        private void saveTransformedFile_Click(object sender, RoutedEventArgs e)
-        {
-            var form = new ConnectorForm();
-            if(form.ShowDialog() == true)
-            {
-                corpusManager = new CorpusManager();
-                corpusManager.ConnectCorpus(form.Connector);
-                corpusManager.AddCorpus(result);
-            }
+            var form = new MasterWizard();
+            form.Show();
         }
     }
 }

@@ -1,0 +1,20 @@
+﻿<Window x:Class="FormatTransformer.MasterWizard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FormatTransformer"
+        mc:Ignorable="d"
+        Title="MasterWizard" Height="276" Width="477">
+    <Grid>
+        <Button x:Name="nextStepButton" Content="Далее" HorizontalAlignment="Left" Margin="430,230,0,0" VerticalAlignment="Top" Click="nextStepButton_Click"/>
+        <Button x:Name="cancelButton" Content="Отмена" HorizontalAlignment="Left" Margin="380,230,0,0" VerticalAlignment="Top" Click="cancelButton_Click"/>
+        <ComboBox x:Name="typesConnection" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="457">
+            <ComboBoxItem x:Name="db" Content="База данных"/>
+            <ComboBoxItem x:Name="local" Content="Локальный диск"/>
+        </ComboBox>
+        <TextBox x:Name="connectionTextBox" HorizontalAlignment="Left" Margin="145,66,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="322"/>
+        <Label Content="Строка подключения:" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

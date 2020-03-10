@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FormatTransformerLib
 {
-    public class Icorpora : ICorpora
+    public class Corpus : ICorpora
     {
         private List<ICorpora> corpora = new List<ICorpora>();
 

@@ -8,7 +8,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
     public class LocalCorpusConnector : ICorpusConnector
     {
         private string connectorString = @"..\..\..\";
-        private Icorpora corpora = new Icorpora();
+        private Corpus corpora = new Corpus();
 
         public LocalCorpusConnector()
         {
@@ -34,7 +34,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             }
             foreach(var d in directoryInfo.GetDirectories())
             {
-                Icorpora corpus = new Icorpora() { Title = d.Name };
+                Corpus corpus = new Corpus() { Title = d.Name };
                 foreach (var f in d.GetFiles())
                 {
                     var file = new TextFile()
@@ -54,7 +54,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             if (!directoryInfo.Exists)
             {
                 directoryInfo.Create();
-                corpora.Add(new Icorpora() { Title = title });
+                corpora.Add(new Corpus() { Title = title });
             }
         }
 
@@ -63,7 +63,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             return corpora.GetCorpora();
         }
 
-        public void AddFile(Icorpora corpus, string fileName)
+        public void AddFile(Corpus corpus, string fileName)
         {
             var path = connectorString + @"CorporaStore\" + corpus.Title + @"\" + Path.GetFileName(fileName);
             corpus.Add(new TextFile() { Title = Path.GetFileName(fileName), Info = path });
