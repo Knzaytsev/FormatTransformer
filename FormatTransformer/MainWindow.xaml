@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FormatTransformer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="492" Width="798">
+        Title="MainWindow" Height="492" Width="850">
     <Grid>
         <TabControl x:Name="tabControlManagers">
             <TabItem Header="Менеджер корпусов">
                 <Grid Background="#FFE5E5E5">
                     <Button x:Name="loadCorpora" Content="Загрузить корпус" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="loadCorpora_Click" Width="106"/>
                     <Button x:Name="addCorpus" Content="Добавить корпус" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Click="addCorpus_Click" Width="106"/>
-                    <DockPanel x:Name="corpusTree" LastChildFill="False" Margin="121,19,342,19">
+                    <DockPanel x:Name="corpusTree" LastChildFill="False" Margin="121,19,378,19">
                         <ListBox x:Name="listCorpora" Width="328" SelectionChanged="listCorpora_SelectionChanged">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -21,7 +21,7 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </DockPanel>
-                    <DockPanel LastChildFill="False" Margin="455,19,8,19">
+                    <DockPanel LastChildFill="False" Margin="455,19,44,19">
                         <ListBox x:Name="listFiles" SelectionChanged="listFiles_SelectionChanged" Width="328">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>

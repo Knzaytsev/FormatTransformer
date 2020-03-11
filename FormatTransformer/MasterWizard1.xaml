@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FormatTransformer"
         mc:Ignorable="d"
-        Title="MasterWizard1" Height="276" Width="477">
+        Title="MasterWizard1" Height="300" Width="500">
     <Grid>
-        <Button x:Name="nextStepButton" Content="Далее" HorizontalAlignment="Left" Margin="430,230,0,0" VerticalAlignment="Top" Click="nextStepButton_Click"/>
-        <Button x:Name="cancelButton" Content="Отмена" HorizontalAlignment="Left" Margin="334,230,0,0" VerticalAlignment="Top" Click="cancelButton_Click"/>
+        <Button x:Name="nextStepButton" Content="Далее" HorizontalAlignment="Left" Margin="394,230,0,0" VerticalAlignment="Top" Click="nextStepButton_Click" Width="62"/>
+        <Button x:Name="cancelButton" Content="Отмена" HorizontalAlignment="Left" Margin="260,230,0,0" VerticalAlignment="Top" Click="cancelButton_Click" Width="62"/>
         <ListBox x:Name="listCorpora" Margin="10,44,10,44">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -17,6 +17,6 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Label Content="Выберите исходный корпус:" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="returnButton" Content="Назад" HorizontalAlignment="Left" Margin="385,230,0,0" VerticalAlignment="Top" Width="40" Click="returnButton_Click"/>
+        <Button x:Name="returnButton" Content="Назад" HorizontalAlignment="Left" Margin="327,230,0,0" VerticalAlignment="Top" Width="62" Click="returnButton_Click"/>
     </Grid>
 </Window>
