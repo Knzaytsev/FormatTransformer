@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace FormatTransformerLib.Transformers
 {
-    public class DBTransformer : ITransformer
+    public class XMLDBTransformer : ITransformer
     {
         public object Transform(object input, object rule, object output)
         {

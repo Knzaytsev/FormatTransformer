@@ -46,7 +46,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
             return new TextFile()
             {
-                Title = fileName,
+                Title = Path.GetFileName(fileName),
                 Info = path
             };
         }
@@ -79,8 +79,8 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             var fileName = file as string;
 
             var fileInfo = new FileInfo(fileName);
-            var corpus = fileInfo.DirectoryName;
-            var newPath = connectorString + corpus + @"\" + newName;
+            var corpus = Path.GetDirectoryName(fileName);
+            var newPath = corpus + @"\" + newName;
             fileInfo.MoveTo(newPath);
 
             return new TextFile()

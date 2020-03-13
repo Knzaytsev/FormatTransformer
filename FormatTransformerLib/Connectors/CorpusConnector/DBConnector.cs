@@ -214,6 +214,50 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             }
         }
 
+        public DataSet GetDataSet()
+        {
+            var dataSet = new DataSet();
+
+            using(connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var cmd =
+                    "select * from text;" +
+                    "select * from paragraph;" +
+                    "select * from sentence;" +
+                    "select * from token;" +
+                    "select * from tfr;" +
+                    "select * from v;" +
+                    "select * from l;" +
+                    "select * from g;";
+
+                var adapter = new SqlDataAdapter(cmd, connection);
+                adapter.TableMappings.Add("Table", "text");
+                adapter.TableMappings.Add("Table1", "paragraph");
+                adapter.TableMappings.Add("Table2", "sentence");
+                adapter.TableMappings.Add("Table3", "token");
+                adapter.TableMappings.Add("Table4", "tfr");
+                adapter.TableMappings.Add("Table5", "v");
+                adapter.TableMappings.Add("Table6", "l");
+                adapter.TableMappings.Add("Table7", "g");
+
+                adapter.Fill(dataSet);
+
+                var text = dataSet.Tables["text"];
+                var paragraph = dataSet.Tables["paragraph"];
+                var sentence = dataSet.Tables["sentence"];
+                var token = dataSet.Tables["token"];
+                var tfr = dataSet.Tables["tfr"];
+                var v = dataSet.Tables["v"];
+                var l = dataSet.Tables["l"];
+                var g = dataSet.Tables["g"];
+
+
+            }
+
+            return dataSet;
+        }
         /*public void AddCorpus(object corpus)
         {
             var dataSet = corpus as DataSet;

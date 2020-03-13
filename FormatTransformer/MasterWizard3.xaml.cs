@@ -33,9 +33,10 @@ namespace FormatTransformer
         private void transformingButton_Click(object sender, RoutedEventArgs e)
         {
             Transformer transformer = new Transformer();
+            // TODO: сделать нормальное чтение.
             transformer.AddFile((singleton.Corpus as Corpus).GetCorpora()[0].Info);
             transformer.AddRule(singleton.Rule.Info);
-            transformer.Transform(new DBTransformer());
+            transformer.Transform(new XMLDBTransformer());
             var result = transformer.GetResult();
             var manager = new CorpusManager();
             manager.ConnectCorpus(singleton.ConnectorTo);

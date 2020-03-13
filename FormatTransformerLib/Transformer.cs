@@ -8,23 +8,18 @@ namespace FormatTransformerLib
 {
     public class Transformer
     {
-        private string file;
-        private string rule;
+        private object file;
+        private object rule;
         private object result = "result";
 
-        public void AddFile(string file)
+        public void AddFile(object file)
         {
             this.file = file;
         }
 
-        public void AddRule(string rule)
+        public void AddRule(object rule)
         {
             this.rule = rule;
-        }
-
-        public bool CheckFileRule()
-        {
-            return false;
         }
 
         public void Transform(ITransformer transformer)

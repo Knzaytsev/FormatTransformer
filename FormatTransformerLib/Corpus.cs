@@ -8,8 +8,6 @@ namespace FormatTransformerLib
     {
         private List<ICorpora> corpora = new List<ICorpora>();
 
-        //private Dictionary<string, ICorpora> t = new Dictionary<string, ICorpora>();
-
         public string Title { get; set; }
         public string Info { get; set; }
 
