@@ -61,7 +61,7 @@ namespace FormatTransformer
             if (corpora is null)
                 return;
             var collectionCorpora = new ObservableCollection<ICorpora>();
-            foreach (var c in corpora)
+            foreach (var c in corpora.GetCorpora())
             {
                 collectionCorpora.Add(c);
             }

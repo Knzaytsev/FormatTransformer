@@ -10,7 +10,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
     {
         private string connectionString = "";
         private SqlConnection connection;
-        private Corpus corpus = new Corpus() { Title = "Corpora" };
+        //private Corpus corpus = new Corpus() { Title = "Corpora" };
 
         public DBConnector()
         {
@@ -22,7 +22,199 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             this.connectionString = connectionString;
         }
 
-        public void AddCorpus(object corpus)
+        public Corpus AddCorpus(object corpus)
+        {
+            using(connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var dataSet = corpus as DataSet;
+                var done = false;
+                using (connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    foreach (DataTable t in dataSet.Tables)
+                    {
+                        try
+                        {
+                            new SqlCommand(string.Format("SET IDENTITY_INSERT {0} ON;", t.TableName), connection).ExecuteNonQuery();
+                        }
+                        catch { }
+
+                        var valuesCorpus = "";
+                        var columnsCorpus = "";
+                        if (!done)
+                        {
+                            columnsCorpus += "corpus_Id,";
+                            valuesCorpus += "1,";
+                            done = true;
+                        }
+                        foreach (DataRow r in t.Rows)
+                        {
+                            var values = valuesCorpus;
+                            var columns = columnsCorpus;
+                            foreach (DataColumn c in t.Columns)
+                            {
+                                columns += c.ColumnName + ",";
+                                /*if (r[c].ToString().Contains("\"") || r[c].ToString().Contains("'"))
+                                {
+                                    r[c] = r[c].ToString().Replace("'", "");
+                                }*/
+                                values += "'" + r[c] + "',";
+                            }
+                            columns = columns.Remove(columns.Length - 1);
+                            values = values.Remove(values.Length - 1);
+                            var cmd = string.Format("insert into {0} ({1}) values ({2})", t.TableName, columns, values);
+                            var command = new SqlCommand(cmd, connection);
+                            command.ExecuteNonQuery();
+                        }
+                        try
+                        {
+                            new SqlCommand(string.Format("SET IDENTITY_INSERT {0} OFF;", t.TableName), connection).ExecuteNonQuery();
+                        }
+                        catch { }
+                    }
+                }
+            }
+            return GetCorpora();
+        }
+
+        public TextFile AddFile(object corpus, string fileName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Connect()
+        {
+            connection = new SqlConnection(connectionString);
+            using (connection)
+            {
+                connection.Open();
+            }
+        }
+
+        public Corpus EditCorpus(object corpus, string newName)
+        {
+            var corpusId = corpus as string;
+
+            using(connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var cmd = string.Format("update corpora set name = {0} where corpus_Id = {1}", "'" + newName + "'", corpusId);
+                var command = new SqlCommand(cmd, connection);
+                command.ExecuteNonQuery();
+            }
+
+            return new Corpus()
+            {
+                Title = newName,
+                Info = corpusId
+            };
+        }
+
+        public TextFile EditFile(object file, string newName)
+        {
+            var fileInfo = file as string;
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var command = new SqlCommand(string.Format("update text set name = {0} where text_Id = {1}",
+                    "'" + newName + "'", fileInfo), connection);
+                command.ExecuteNonQuery();
+            }
+
+            return new TextFile()
+            {
+                Title = newName,
+                Info = fileInfo
+            };
+        }
+
+        public Corpus GetCorpora()
+        {
+            var corpora = new Corpus()
+            {
+                Title = "CorporaStore",
+                Info = "0"
+            };
+
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var command = new SqlCommand("select * from corpora", connection);
+                var reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader["corpus_Id"].ToString();
+                        var title = reader["name"].ToString();
+
+                        var corpus = new Corpus()
+                        {
+                            Title = title.ToString(),
+                            Info = id.ToString()
+                        };
+                        var commandFiles = new SqlCommand(string.Format("select * from text where corpus_Id = {0}", id),
+                            connection);
+                        var readerFiles = commandFiles.ExecuteReader();
+
+                        if (readerFiles.HasRows)
+                        {
+                            while (readerFiles.Read())
+                            {
+                                id = readerFiles["text_Id"].ToString();
+                                title = readerFiles["name"].ToString();
+
+                                var file = new TextFile()
+                                {
+                                    Title = title,
+                                    Info = id
+                                };
+                                corpus.Add(file);
+                            }
+                        }
+                        corpora.Add(corpus);
+                    }
+                }
+            }
+            return corpora;
+        }
+
+        public void RemoveCorpus(object corpus)
+        {
+            var corpusId = corpus as string;
+
+            using(connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var cmd = string.Format("delete from corpora where corpus_Id = {0}", corpusId);
+                var command = new SqlCommand(cmd, connection);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void RemoveFile(object file)
+        {
+            var fileId = file as string;
+
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var cmd = string.Format("delete from text where text_Id = {0}", fileId);
+                var command = new SqlCommand(cmd, connection);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        /*public void AddCorpus(object corpus)
         {
             var dataSet = corpus as DataSet;
             using (connection = new SqlConnection(connectionString))
@@ -164,6 +356,6 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
             }
 
             corpus.Delete(file);
-        }
+        }*/
     }
 }

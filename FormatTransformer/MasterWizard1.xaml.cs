@@ -29,7 +29,7 @@ namespace FormatTransformer
             this.singleton = singleton;
             connector = this.singleton.ConnectorFrom;
             connector.Connect();
-            listCorpora.ItemsSource = new ObservableCollection<ICorpora>(connector.GetCorpora());
+            listCorpora.ItemsSource = new ObservableCollection<ICorpora>(connector.GetCorpora().GetCorpora());
         }
 
         private void nextStepButton_Click(object sender, RoutedEventArgs e)

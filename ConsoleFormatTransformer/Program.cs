@@ -15,7 +15,7 @@ namespace ConsoleFormatTransformer
             transformer.Transform(new DBTransformer());
             var result = transformer.GetResult();
             var corpusManager = new CorpusManager();
-            corpusManager.ConnectCorpus(new DBConnector(@"Data Source=LAPTOP-6UGN0SO3\SQLEXPRESS01;Initial Catalog=OpenCorpora;Integrated Security=True"));
+            corpusManager.ConnectCorpus(new DBConnector(@"Data Source=LAPTOP-6UGN0SO3\SQLEXPRESS01;Initial Catalog=OpenCorpora;Integrated Security=True;MultipleActiveResultSets=true"));
             corpusManager.AddCorpus(result);
             var corpora = corpusManager.GetCorpora();
             //corpusManager.RemoveCorpus(corpora[1]);
