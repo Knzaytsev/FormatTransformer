@@ -9,7 +9,7 @@ namespace FormatTransformerLib.Transformers
     {
         public object Transform(object input, object rule, object output)
         {
-            var dataSet = new DataSet();
+            var dataSet = input as DataSet;
             dataSet.WriteXml(output as string);
             return output;
         }
