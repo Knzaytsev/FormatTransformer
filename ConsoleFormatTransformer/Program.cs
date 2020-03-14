@@ -10,7 +10,7 @@ namespace ConsoleFormatTransformer
         static void Main(string[] args)
         {
             //TransformDBXML();
-            TransformXMLFLatFiles(@"..\..\..\CorporaStore\XMLCorpora\opcTest.xml", @"..\..\..\RuleStore\ffrule.xsl");
+            TransformXMLFLatFiles(@"..\..\..\CorporaStore\XMLCorpora\opcTest.xml", @"..\..\..\RuleStore\ffsentencerule.xsl");
         }
         
         static private void TransformDBXML()
