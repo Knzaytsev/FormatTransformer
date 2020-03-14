@@ -20,11 +20,7 @@ namespace FormatTransformerLib.Transformers
                     dataSet.Tables[t.TableName].Rows.Add(r.ItemArray);
                 }
             }
-            
-            //dataSet.ReadXmlSchema(rule as string);
-            //dataSet.WriteXmlSchema("schema");
-            //dataSet.WriteXmlSchema("schema");
-            //dataSet.ReadXmlSchema("rule1.xsd");
+
             dataSet.WriteXml(output as string);
             return output;
         }

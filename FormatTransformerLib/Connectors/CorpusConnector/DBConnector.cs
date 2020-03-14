@@ -57,10 +57,6 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
                             foreach (DataColumn c in t.Columns)
                             {
                                 columns += c.ColumnName + ",";
-                                /*if (r[c].ToString().Contains("\"") || r[c].ToString().Contains("'"))
-                                {
-                                    r[c] = r[c].ToString().Replace("'", "");
-                                }*/
                                 values += "'" + r[c] + "',";
                             }
                             columns = columns.Remove(columns.Length - 1);
@@ -243,27 +239,6 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
                 adapter.TableMappings.Add("Table7", "g");
 
                 adapter.Fill(dataSet);
-
-                /*var text = dataSet.Tables["text"];
-                var paragraph = dataSet.Tables["paragraph"];
-                var sentence = dataSet.Tables["sentence"];
-                var token = dataSet.Tables["token"];
-                var tfr = dataSet.Tables["tfr"];
-                var v = dataSet.Tables["v"];
-                var l = dataSet.Tables["l"];
-                var g = dataSet.Tables["g"];
-
-                var tp = new DataRelation("text_paragraph", text.Columns["text_Id"], paragraph.Columns["text_Id"], true);
-                var ps = new DataRelation("paragraph_sentence", paragraph.Columns["paragraph_Id"], sentence.Columns["paragraph_Id"], true);
-                var st = new DataRelation("sentence_token", sentence.Columns["sentence_Id"], token.Columns["sentence_Id"], true);
-                var tt = new DataRelation("token_tfr", token.Columns["token_Id"], tfr.Columns["token_Id"], true);
-                var tv = new DataRelation("tfr_v", tfr.Columns["tfr_Id"], v.Columns["tfr_Id"], true);
-                var vl = new DataRelation("v_l", v.Columns["v_Id"], l.Columns["v_Id"], true);
-                var lg = new DataRelation("l_g", l.Columns["l_Id"], g.Columns["l_Id"], true);*/
-
-                /*dataSet.Relations.AddRange(new DataRelation[]{
-                tp, ps, st, tt, tv, vl, lg }
-                );*/
             }
 
             return dataSet;

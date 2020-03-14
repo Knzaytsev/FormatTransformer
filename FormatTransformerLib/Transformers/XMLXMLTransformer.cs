@@ -16,7 +16,6 @@ namespace FormatTransformerLib
             settings.EnableScript = true;
             XslCompiledTransform xslt = new XslCompiledTransform();
             xslt.Load(rule as string, settings, null);
-            xslt.Load(rule as string, settings, null);
             xslt.Transform(input as string, output as string);
             return output;
         }
