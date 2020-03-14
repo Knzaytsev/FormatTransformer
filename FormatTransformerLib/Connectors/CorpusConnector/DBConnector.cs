@@ -244,7 +244,7 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
                 adapter.Fill(dataSet);
 
-                var text = dataSet.Tables["text"];
+                /*var text = dataSet.Tables["text"];
                 var paragraph = dataSet.Tables["paragraph"];
                 var sentence = dataSet.Tables["sentence"];
                 var token = dataSet.Tables["token"];
@@ -253,17 +253,17 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
                 var l = dataSet.Tables["l"];
                 var g = dataSet.Tables["g"];
 
-                var tp = new DataRelation("text_Id", text.Columns["text_Id"], paragraph.Columns["text_Id"], true);
-                var ps = new DataRelation("paragraph_Id", paragraph.Columns["paragraph_Id"], sentence.Columns["paragraph_Id"], true);
-                var st = new DataRelation("sentence_Id", sentence.Columns["sentence_Id"], token.Columns["sentence_Id"], true);
-                var tt = new DataRelation("token_Id", token.Columns["token_Id"], tfr.Columns["token_Id"], true);
-                var tv = new DataRelation("tfr_Id", tfr.Columns["tfr_Id"], v.Columns["tfr_Id"], true);
-                var vl = new DataRelation("v_Id", v.Columns["v_Id"], l.Columns["v_Id"], true);
-                var lg = new DataRelation("l_Id", l.Columns["l_Id"], g.Columns["l_Id"], true);
+                var tp = new DataRelation("text_paragraph", text.Columns["text_Id"], paragraph.Columns["text_Id"], true);
+                var ps = new DataRelation("paragraph_sentence", paragraph.Columns["paragraph_Id"], sentence.Columns["paragraph_Id"], true);
+                var st = new DataRelation("sentence_token", sentence.Columns["sentence_Id"], token.Columns["sentence_Id"], true);
+                var tt = new DataRelation("token_tfr", token.Columns["token_Id"], tfr.Columns["token_Id"], true);
+                var tv = new DataRelation("tfr_v", tfr.Columns["tfr_Id"], v.Columns["tfr_Id"], true);
+                var vl = new DataRelation("v_l", v.Columns["v_Id"], l.Columns["v_Id"], true);
+                var lg = new DataRelation("l_g", l.Columns["l_Id"], g.Columns["l_Id"], true);*/
 
-                dataSet.Relations.AddRange(new DataRelation[]{
+                /*dataSet.Relations.AddRange(new DataRelation[]{
                 tp, ps, st, tt, tv, vl, lg }
-                );
+                );*/
             }
 
             return dataSet;

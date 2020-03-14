@@ -11,6 +11,27 @@ namespace ConsoleFormatTransformer
         {
             TransformDBXML();
             //TransformXMLDB();
+            /*var transformer = new Transformer();
+            transformer.AddFile(@"..\..\..\CorporaStore\DBCorpora\opcTest.xml");
+            transformer.AddRule(@"..\..\..\RuleStore\rule1.xsd");
+            transformer.Transform(new XMLDBTransformer());
+            var result = transformer.GetResult();
+            var corpusManager = new CorpusManager();
+            corpusManager.ConnectCorpus(new DBConnector(@"Data Source=LAPTOP-6UGN0SO3\SQLEXPRESS01;Initial Catalog=OpenCorpora;Integrated Security=True;MultipleActiveResultSets=true"));
+            corpusManager.AddCorpus(result);
+
+            transformer = new Transformer();
+            var dbCorpusManager = new DBCorpusManager();
+            dbCorpusManager.ConnectCorpus(
+                new DBConnector(
+                    @"Data Source=LAPTOP-6UGN0SO3\SQLEXPRESS01;Initial Catalog=OpenCorpora;Integrated Security=True;MultipleActiveResultSets=true"));
+            transformer.AddFile(result);
+            //transformer.AddRule(@"..\..\..\RuleStore\rule1.xsd");
+            transformer.Transform(new DBXMLTransformer());
+            result = transformer.GetResult();
+            corpusManager = new CorpusManager();
+            corpusManager.ConnectCorpus(new LocalCorpusConnector());
+            corpusManager.AddCorpus(result);*/
         }
         
         static private void TransformDBXML()
@@ -22,6 +43,7 @@ namespace ConsoleFormatTransformer
                     @"Data Source=LAPTOP-6UGN0SO3\SQLEXPRESS01;Initial Catalog=OpenCorpora;Integrated Security=True;MultipleActiveResultSets=true"));
             var ds = dbCorpusManager.GetDataSetFromDB();
             transformer.AddFile(ds);
+            transformer.AddRule(@"..\..\..\RuleStore\rule1.xsd");
             transformer.Transform(new DBXMLTransformer());
             var result = transformer.GetResult();
             var corpusManager = new CorpusManager();
