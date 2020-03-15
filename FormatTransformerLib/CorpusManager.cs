@@ -64,5 +64,10 @@ namespace FormatTransformerLib
             corpus.Delete(file);
             corpus.Add(editedFile);
         }
+
+        public void AddFile(object file)
+        {
+            connector.AddFile(file, "aaa");
+        }
     }
 }

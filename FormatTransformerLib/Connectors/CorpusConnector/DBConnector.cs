@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace FormatTransformerLib.Connectors.CorpusConnector
 {
@@ -78,7 +79,26 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
         public TextFile AddFile(object corpus, string fileName)
         {
-            throw new NotImplementedException();
+            var dataTable = corpus as DataTable;
+            using(connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var columns = string.Join(',', dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName));
+
+                new SqlCommand(string.Format("SET IDENTITY_INSERT {0} ON;", "text"), connection).ExecuteNonQuery();
+                foreach (DataRow r in dataTable.Rows)
+                {
+                    var items = r.ItemArray.Select(x => "'" + x + "'");
+                    var values = string.Join(',', items);
+                    var cmd = string.Format("insert into text ({0}) values ({1})", columns, values);
+
+                    var command = new SqlCommand(cmd, connection);
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            return null;
         }
 
         public void Connect()

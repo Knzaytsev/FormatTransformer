@@ -11,9 +11,24 @@ namespace ConsoleFormatTransformer
         {
             //TransformDBXML();
             //TransformXMLFLatFiles(@"..\..\..\CorporaStore\XMLCorpora\opcTest.xml", @"..\..\..\RuleStore\ffsentencerule.xsl");
-            TransformDBFlatFile();
+            //TransformDBFlatFile();
+            TransformFlatFileDB(@"C:\Users\Tuccc\Desktop\Учёба\3 курс\Курсовая\FormatTransformer\ConsoleFormatTransformer\bin\Debug\netcoreapp3.1\result");
         }
         
+        static private void TransformFlatFileDB(string input)
+        {
+            var transformer = new Transformer();
+            var dbCorpusManager = new DBCorpusManager();
+            dbCorpusManager.ConnectCorpus(
+                new DBConnector(
+                    @"Data Source=LAPTOP-6UGN0SO3\SQLEXPRESS01;Initial Catalog=OpenCorpora;Integrated Security=True;MultipleActiveResultSets=true"));
+            
+            transformer.AddFile(input);
+            transformer.Transform(new FlatFileDB());
+            var result = transformer.GetResult();
+            dbCorpusManager.AddFile(result);
+        }
+
         static private void TransformDBFlatFile()
         {
             var transformer = new Transformer();

@@ -12,7 +12,8 @@ namespace FormatTransformerLib.Transformers
     {
         public object Transform(object input, object rule, object output)
         {
-            var dataTable = (input as DataSet).Tables["text"];
+            //var dataTable = (input as DataSet).Tables["text"];
+            var dataTable = input as DataTable;
             using(var file = File.CreateText(output as string))
             {
                 var columnNames = dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName);
