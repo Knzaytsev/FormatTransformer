@@ -11,7 +11,7 @@ namespace FormatTransformerLib.Transformers
         public object Transform(object input, object rule, object output)
         {
             var inputFile = input as string;
-            var outputDataTable = new DataTable();
+            var outputDataTable = new DataTable("text");
 
             using (var reader = new StreamReader(inputFile))
             {

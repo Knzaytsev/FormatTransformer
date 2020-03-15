@@ -79,26 +79,27 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
         public TextFile AddFile(object corpus, string fileName)
         {
-            var dataTable = corpus as DataTable;
-            using(connection = new SqlConnection(connectionString))
+            var dataRow = corpus as DataRow;
+            var textFile = new TextFile();
+            using (connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                var columns = string.Join(',', dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName));
+                new SqlCommand(string.Format("SET IDENTITY_INSERT {0} ON;", dataRow.Table.TableName), connection).ExecuteNonQuery();
 
-                new SqlCommand(string.Format("SET IDENTITY_INSERT {0} ON;", "text"), connection).ExecuteNonQuery();
-                foreach (DataRow r in dataTable.Rows)
-                {
-                    var items = r.ItemArray.Select(x => "'" + x + "'");
-                    var values = string.Join(',', items);
-                    var cmd = string.Format("insert into text ({0}) values ({1})", columns, values);
+                var columns = string.Join(',', dataRow.Table.Columns.Cast<DataColumn>().Select(x => x.ColumnName));
+                var items = string.Join(',', dataRow.ItemArray.Select(x => "'" + x + "'"));
 
-                    var command = new SqlCommand(cmd, connection);
-                    command.ExecuteNonQuery();
-                }
+                var cmd = string.Format("insert into {0} ({1}) values ({2})", dataRow.Table.TableName, columns, items);
+
+                var command = new SqlCommand(cmd, connection);
+                command.ExecuteNonQuery();
+
+                textFile.Title = fileName;
+                textFile.Info = dataRow["text_Id"].ToString();
             }
 
-            return null;
+            return textFile;
         }
 
         public void Connect()

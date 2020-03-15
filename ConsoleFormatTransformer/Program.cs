@@ -26,7 +26,7 @@ namespace ConsoleFormatTransformer
             transformer.AddFile(input);
             transformer.Transform(new FlatFileDB());
             var result = transformer.GetResult();
-            dbCorpusManager.AddFile(result);
+            dbCorpusManager.AddFile(new Corpus(), result);
         }
 
         static private void TransformDBFlatFile()
