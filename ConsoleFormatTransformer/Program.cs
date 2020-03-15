@@ -41,7 +41,7 @@ namespace ConsoleFormatTransformer
             transformer.Transform(new DBFlatFile());
             var result = transformer.GetResult();
             var corpusManager = new CorpusManager();
-            corpusManager.ConnectCorpus(new LocalCorpusConnector());
+            corpusManager.ConnectCorpus(new LocalCorpusXMLConnector());
             corpusManager.AddCorpus(result);
         }
 
@@ -58,7 +58,7 @@ namespace ConsoleFormatTransformer
             transformer.Transform(new DBXMLTransformer());
             var result = transformer.GetResult();
             var corpusManager = new CorpusManager();
-            corpusManager.ConnectCorpus(new LocalCorpusConnector());
+            corpusManager.ConnectCorpus(new LocalCorpusXMLConnector());
             corpusManager.AddCorpus(result);
         }
 
@@ -82,7 +82,7 @@ namespace ConsoleFormatTransformer
             transformer.Transform(new XMLXMLTransformer());
             var result = transformer.GetResult();
             var corpusManager = new CorpusManager();
-            corpusManager.ConnectCorpus(new LocalCorpusConnector());
+            corpusManager.ConnectCorpus(new LocalCorpusXMLConnector());
         }
 
         private static void TransformXMLFLatFiles(string input, string rule)
@@ -93,7 +93,7 @@ namespace ConsoleFormatTransformer
             transformer.Transform(new XMLXMLTransformer());
             var result = transformer.GetResult();
             var corpusManager = new CorpusManager();
-            corpusManager.ConnectCorpus(new LocalCorpusConnector());
+            corpusManager.ConnectCorpus(new LocalCorpusXMLConnector());
         }
     }
 }

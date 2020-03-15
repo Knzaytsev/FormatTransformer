@@ -34,7 +34,7 @@ namespace FormatTransformer
                     Connector = new DBConnector(connectionString);
                     break;
                 case "local":
-                    Connector = new LocalCorpusConnector();
+                    Connector = new LocalCorpusXMLConnector();
                     break;
             }
             this.DialogResult = true;

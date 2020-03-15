@@ -5,17 +5,17 @@ using System.Text;
 
 namespace FormatTransformerLib.Connectors.CorpusConnector
 {
-    public class LocalCorpusConnector : ICorpusConnector
+    public class LocalCorpusXMLConnector : ICorpusConnector
     {
         private string connectorString = @"..\..\..\CorporaStore\";
         //private Corpus corpora = new Corpus();
 
-        public LocalCorpusConnector()
+        public LocalCorpusXMLConnector()
         {
 
         }
 
-        public LocalCorpusConnector(string connectorString)
+        public LocalCorpusXMLConnector(string connectorString)
         {
             this.connectorString = connectorString;
         }

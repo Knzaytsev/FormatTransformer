@@ -44,7 +44,7 @@ namespace FormatTransformer
             switch (((ComboBoxItem)typesConnection.SelectedItem).Name)
             {
                 case "local":
-                    connector = new LocalCorpusConnector();
+                    connector = new LocalCorpusXMLConnector();
                     break;
                 case "db":
                     connector = new DBConnector(connectionTextBox.Text);
@@ -59,6 +59,10 @@ namespace FormatTransformer
             else
             {
                 singleton.ConnectorTo = connector;
+                if(singleton.ConnectorFrom is DBConnector && singleton.ConnectorTo is LocalCorpusFlatFilesConnector)
+                {
+
+                }
                 var form = new MasterWizard3(singleton);
                 form.Show();
             }
