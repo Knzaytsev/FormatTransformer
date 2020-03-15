@@ -10,9 +10,26 @@ namespace ConsoleFormatTransformer
         static void Main(string[] args)
         {
             //TransformDBXML();
-            TransformXMLFLatFiles(@"..\..\..\CorporaStore\XMLCorpora\opcTest.xml", @"..\..\..\RuleStore\ffsentencerule.xsl");
+            //TransformXMLFLatFiles(@"..\..\..\CorporaStore\XMLCorpora\opcTest.xml", @"..\..\..\RuleStore\ffsentencerule.xsl");
+            TransformDBFlatFile();
         }
         
+        static private void TransformDBFlatFile()
+        {
+            var transformer = new Transformer();
+            var dbCorpusManager = new DBCorpusManager();
+            dbCorpusManager.ConnectCorpus(
+                new DBConnector(
+                    @"Data Source=LAPTOP-6UGN0SO3\SQLEXPRESS01;Initial Catalog=OpenCorpora;Integrated Security=True;MultipleActiveResultSets=true"));
+            var ds = dbCorpusManager.GetDataSetFromDB();
+            transformer.AddFile(ds);
+            transformer.Transform(new DBFlatFile());
+            var result = transformer.GetResult();
+            var corpusManager = new CorpusManager();
+            corpusManager.ConnectCorpus(new LocalCorpusConnector());
+            corpusManager.AddCorpus(result);
+        }
+
         static private void TransformDBXML()
         {
             var transformer = new Transformer();

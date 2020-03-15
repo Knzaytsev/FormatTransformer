@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FormatTransformer"
         mc:Ignorable="d"
-        Title="ConnectorForm" Height="212" Width="405">
+        Title="Подключение к корпусу" Height="212" Width="405">
     <Grid>
         <ListBox x:Name="connectorList" HorizontalAlignment="Left" Height="121" Margin="17,46,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="connectorList_SelectionChanged">
             <ListBoxItem x:Name="local">
