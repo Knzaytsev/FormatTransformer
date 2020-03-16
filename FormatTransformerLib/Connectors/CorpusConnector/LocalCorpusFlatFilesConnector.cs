@@ -18,7 +18,36 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
         public Corpus AddCorpus(object corpus)
         {
-            throw new NotImplementedException();
+            var flatFiles = corpus as FlatFile;
+            var corpora = new Corpus() 
+            { 
+                Title = flatFiles.CorpusTitle, 
+                Info = connectorString + flatFiles.CorpusTitle 
+            };
+
+            var directoryInfo = new DirectoryInfo(connectorString + flatFiles.CorpusTitle);
+
+            if (!directoryInfo.Exists)
+                directoryInfo.Create();
+
+            foreach(var tf in flatFiles.FlatFiles.Keys)
+            {
+                var directoryInfoSub = directoryInfo.CreateSubdirectory(tf);
+                var textFile = new TextFile()
+                {
+                    Title = tf,
+                    Info = connectorString + flatFiles.CorpusTitle + @"\" + tf
+                };
+
+                foreach(var f in flatFiles.FlatFiles[tf])
+                {
+                    var fileInfo = new FileInfo(f);
+                    fileInfo.CopyTo(connectorString + flatFiles.CorpusTitle + @"\" + Path.GetFileName(f));
+                }
+                corpora.Add(textFile);
+            }
+
+            return corpora;
         }
 
         public TextFile AddFile(object corpus, string fileName)
@@ -79,12 +108,14 @@ namespace FormatTransformerLib.Connectors.CorpusConnector
 
         public void RemoveCorpus(object corpus)
         {
-            throw new NotImplementedException();
+            var directoryInfo = new DirectoryInfo(corpus as string);
+            directoryInfo.Delete(true);
         }
 
         public void RemoveFile(object file)
         {
-            throw new NotImplementedException();
+            var directoryInfo = new DirectoryInfo(file as string);
+            directoryInfo.Delete(true);
         }
     }
 }

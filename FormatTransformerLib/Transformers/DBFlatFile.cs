@@ -13,18 +13,26 @@ namespace FormatTransformerLib.Transformers
         public object Transform(object input, object rule, object output)
         {
             //var dataTable = (input as DataSet).Tables["text"];
-            var dataTable = input as DataTable;
-            using(var file = File.CreateText(output as string))
+            //var dataTable = input as DataTable;
+            var dataSet = input as DataSet;
+            var result = new FlatFile();
+
+            result.CorpusTitle = "SomeCorpora";
+            foreach (DataTable t in dataSet.Tables)
             {
-                var columnNames = dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName);
-                file.Write(string.Join('\t', columnNames));
-                foreach (DataRow r in dataTable.Rows)
+                using (var file = File.CreateText(t.TableName as string))
                 {
-                    file.WriteLine();
-                    file.Write(string.Join('\t', r.ItemArray));
+                    var columnNames = t.Columns.Cast<DataColumn>().Select(x => x.ColumnName);
+                    file.Write(string.Join('\t', columnNames));
+                    foreach (DataRow r in t.Rows)
+                    {
+                        file.WriteLine();
+                        file.Write(string.Join('\t', r.ItemArray));
+                    }
                 }
             }
-            return output;
+            result.FlatFiles.Add(dataSet.DataSetName, dataSet.Tables.Cast<DataTable>().Select(x => x.TableName).ToList());
+            return result;
         }
     }
 }

@@ -22,6 +22,11 @@ namespace FormatTransformerLib
             this.rule = rule;
         }
 
+        public void AddResult(object result)
+        {
+            this.result = result;
+        }
+
         public void Transform(ITransformer transformer)
         {
             result = transformer.Transform(file, rule, result);

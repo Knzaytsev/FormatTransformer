@@ -11,8 +11,9 @@ namespace ConsoleFormatTransformer
         {
             //TransformDBXML();
             //TransformXMLFLatFiles(@"..\..\..\CorporaStore\XMLCorpora\opcTest.xml", @"..\..\..\RuleStore\ffsentencerule.xsl");
-            //TransformDBFlatFile();
-            TransformFlatFileDB(@"C:\Users\Tuccc\Desktop\Учёба\3 курс\Курсовая\FormatTransformer\ConsoleFormatTransformer\bin\Debug\netcoreapp3.1\result");
+            TransformDBFlatFile();
+            //TransformFlatFileDB(@"C:\Users\Tuccc\Desktop\Учёба\3 курс\Курсовая\FormatTransformer\ConsoleFormatTransformer\bin\Debug\netcoreapp3.1\result");
+            //TransformXMLDB();
         }
         
         static private void TransformFlatFileDB(string input)
@@ -41,7 +42,7 @@ namespace ConsoleFormatTransformer
             transformer.Transform(new DBFlatFile());
             var result = transformer.GetResult();
             var corpusManager = new CorpusManager();
-            corpusManager.ConnectCorpus(new LocalCorpusXMLConnector());
+            corpusManager.ConnectCorpus(new LocalCorpusFlatFilesConnector());
             corpusManager.AddCorpus(result);
         }
 
