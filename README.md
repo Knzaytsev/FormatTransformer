@@ -20,8 +20,8 @@
 Возможные комбинации:
 1.  XML - XML - Правило
 2.  XML - Flat Files - Правило
-3.  XML - DB - Правило
-4.  DB - XML - Правило
+3.  XML - DB - схема
+4.  DB - XML - схема
 5.  DB - Flat Files - Настройки
 6.  Flat Files - XML - Правило
 7.  Flat Files - Flat Files - Правило
